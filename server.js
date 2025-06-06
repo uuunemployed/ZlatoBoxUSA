@@ -21,12 +21,13 @@ function sha1(string) {
 }
 
 app.post('/create-payment', (req, res) => {
+    const { amount } = req.body;
   const paymentData = {
     public_key: PUBLIC_KEY,
     version: '3',
     action: 'pay',
-    amount: '1',
-    currency: 'EUR',
+    amount: amount.toString(),
+    currency: 'UAH',
     description: 'Тестова оплата',
     order_id: 'order_' + Date.now(),
     result_url: 'https://yourdomain.com/thank-you'
