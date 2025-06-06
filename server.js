@@ -22,7 +22,7 @@ function sha1(string) {
 
 app.post('/create-payment', (req, res) => {
     const { amount } = req.body;
-  const paymentData = {
+    const paymentData = {
     public_key: PUBLIC_KEY,
     version: '3',
     action: 'pay',

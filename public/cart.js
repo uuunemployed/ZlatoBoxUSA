@@ -38,45 +38,81 @@ function removeItem(index) {
     location.reload();
 }
 
-async function startPayment() {
-    let amount = document.getElementById('total').textContent
-
-    const response = await fetch('/create-payment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount })
-    });
-
-    const { data, signature } = await response.json();
-
-    LiqPayCheckout.init({
-        data,
-        signature,
-        embedTo: "#liqpay_checkout",
-        mode: "embed"
-    }).on("liqpay.callback", function (data) {
-        console.log("callback", data);
-    }).on("liqpay.ready", function (data) {
-        console.log("ready", data);
-    }).on("liqpay.close", function (data) {
-        console.log("close", data);
-    });
+function showOptions() {
+  document.getElementById('radio-container').style.display = 'block';
 }
 
+
+let amount = 0;
+let useFixedAmount = false;
+
+function radioSelected(value) {
+  const liqpayBlock = document.getElementById('liqpay_checkout');
+
+  if (value === 'option1') {
+    amount = 100;
+    useFixedAmount = true;
+
+    // Очищаємо liqpay блок перед новим рендером
+    liqpayBlock.innerHTML = '';
+    liqpayBlock.style.display = 'block';
+
+    // ініціюємо оплату з 100 грн
+    startPayment();
+
+  } else if (value === 'option2') {
+    useFixedAmount = false;
+
+    // перерахунок загальної суми
+    calculateTotal(); // цей виклик має оновити змінну amount
+
+    liqpayBlock.innerHTML = '';
+    liqpayBlock.style.display = 'block';
+
+    // ініціюємо оплату з обрахованою сумою
+    startPayment();
+  }
+}
+
+// Підрахунок суми з кошика
 function calculateTotal() {
+  if (useFixedAmount) return; // не перераховуємо, якщо фіксована ціна
+
   const priceElements = document.querySelectorAll('.price');
   let total = 0;
-  
+
   priceElements.forEach(el => {
-    const text = el.textContent || '';
-    const price = parseFloat(text.replace(/[^\d.]/g, ''));
+    const price = parseFloat(el.textContent.replace(/[^\d.]/g, ''));
     if (!isNaN(price)) total += price;
   });
-  
-  document.getElementById('total').textContent = total.toFixed(2);
+
+  amount = total.toFixed(2);
+  const totalElements = document.querySelectorAll('.total');
+    totalElements.forEach(el => el.textContent = amount);
 }
 
 // Викликаємо після виводу товарів
-if (cart.length > 0) {
-  calculateTotal();
+calculateTotal();
+
+// Оплата
+async function startPayment() {
+  if (amount <= 0) {
+    alert("Сума некоректна");
+    return;
+  }
+
+  const response = await fetch('/create-payment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ amount })
+  });
+
+  const { data, signature } = await response.json();
+
+  LiqPayCheckout.init({
+    data,
+    signature,
+    embedTo: "#liqpay_checkout",
+    mode: "embed"
+  });
 }

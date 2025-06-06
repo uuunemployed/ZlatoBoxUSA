@@ -3,6 +3,7 @@
       margin: 0;
       padding: 0;
       background-color: #f7f7f7;
+      
     }
     header {
       background-color: #4CAF50;
@@ -45,4 +46,15 @@
     }
     button:hover {
       background-color: #d32f2f;
+    }
+
+        #radio-container {
+      display: none;
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    #none{
+        display: none;
     }
