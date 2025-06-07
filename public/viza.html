@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style/viza.css">
+    <script src="viza.js" defer></script>
+</head>
+<body>
+  <form id="shippingForm"> 
+    <h2>Форма доставки</h2>
+
+    <label for="firstName">Ім'я:</label>
+    <input type="text" id="firstName" name="firstName" required>
+
+    <label for="lastName">Прізвище:</label><br>
+    <input type="text" id="lastName" name="lastName" required>
+
+    <label for="email">Електронна пошта:</label><br>
+    <input type="email" id="email" name="email" required>
+    <h3>Оплатa</h3>
+    <p>Виберіть країну, в якій бажаєте забрати товар:</p>
+    <div class="button-country">
+      <button type="button" onclick="toggleBox1()">Чехія</button>
+      <button type="button" onclick="toggleBox2()">Україна</button>
+    </div>
+
+    <!-- Україна -->
+    <div style="display: none;" id="radio-div">
+      <label>
+        <input type="radio" name="group1" onclick="radio1()"> При отриманні
+      </label>
+      <p style="display: none;" id="radio-p">Якщо ви вибрали оплату при отриманні — мінімальна передоплата 5$</p>
+
+      <label>
+        <input type="radio" name="group1" onclick="radio2()"> Картою
+      </label>
+      <p style="display: none;" id="radio-p2">Якщо ви вибрали оплату картою — оплата повна</p>
+    </div>
+
+    <!-- Чехія -->
+    <div style="display: none;" id="Cheh-div">
+      <p>Якщо ви бажаєте отримати товар у Чехії — повна оплата</p>
+    </div>
+
+    <label id="region" for="region">Область:</label><br>
+  <input type="text" name="region" required><br><br>
+
+  <label for="city">Місто / Населений пункт:</label><br>
+  <input type="text" id="city" name="city" required><br><br>
+
+  <label for="postalCode">Поштовий індекс:</label><br>
+  <input type="text" id="postalCode" name="postalCode" pattern="\d{5}" title="Поштовий індекс має бути 5 цифр" required><br><br>
+
+  <label for="postOffice">Відділення пошти:</label><br>
+  <input type="text" id="postOffice" name="postOffice" required><br><br>
+
+  </form>
+  <button id="cart-button" onclick="location.href='pay.html'">Оплатa</button>
+</body>
+</html>

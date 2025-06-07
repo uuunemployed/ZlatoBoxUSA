@@ -40,7 +40,8 @@ app.post('/create-payment', (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log('Server running on http://localhost:3000');
+  console.log('Server running on port 3000');
+  console.log('Open http://localhost:3000 in your browser');
 });
 
 app.use(express.static('public'));

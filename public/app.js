@@ -37,3 +37,10 @@ function updateCartButton() {
   const count = cart.length;
   document.getElementById('cart-button').innerText = `Кошики (${count})`;
 } 
+window.addEventListener('pageshow', function (event) {
+    if (event.persisted) {
+      // Якщо сторінка завантажена з кешу (наприклад, після натискання "назад")
+      location.reload();
+    }
+  });
+

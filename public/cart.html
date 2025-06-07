@@ -3,9 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="cart.css">
-  <script src="https://static.liqpay.ua/libjs/checkout.js" async></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/3.2.0/sha.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.4.2/sha.js"></script>
   <link rel="stylesheet" href="style/cart.css">
   <script src="cart.js" defer></script>
   <title>Оплата LiqPay</title>
@@ -17,43 +14,7 @@
   <main class="container" id="cart-container">
     <!-- Товари будуть показані тут -->
   </main>
-
-    <h2>Загальна сума: <span id="total">0</span> $</h2>
-    
-<form id="payment-form"> 
-  <h3>Оплатa</h3>
-  <p>Виберіть країну, в якій бажаєте забрати товар:</p>
-  <button type="button" onclick="toggleBox1()">Чехія</button>
-  <button type="button" onclick="toggleBox2()">Україна</button>
-
-  <!-- Україна -->
-  <div style="display: none;" id="radio-div">
-    <label>
-      <input type="radio" name="group1" value="pay_on_delivery" onclick="radio()"> При отриманні
-    </label><br>
-    <p>Якщо ви вибрали оплату при отриманні — мінімальна передоплата 5$</p>
-
-    <label>
-      <input type="radio" name="group1" value="pay_by_card" onclick="radioCart()"> Картою
-    </label>
-    <p>Якщо ви вибрали оплату картою — оплата повна</p>
-
-    <div id="liqpay_checkout_ua"></div>
-  </div>
-
-  <!-- Чехія -->
-  <div style="display: none;" id="Cheh-div">
-    <p>Якщо ви бажаєте отримати товар у Чехії — повна оплата</p>
-    <div id="liqpay_checkout_cheh"></div>
-  </div>
-
-  <!-- Можеш додати кнопку для відправлення -->
-  <!-- <button type="submit">Підтвердити оплату</button> -->
-</form>
-
-  <form id="liqpay-form" method="POST" action="https://www.liqpay.ua/api/3/checkout" style="display:none;">
-    <input type="hidden" name="data" id="data">
-    <input type="hidden" name="signature" id="signature">
-  </form>
+    <h3>Сума до оплати: <span id="amountDisplay"></span> $</h3>
+    <button onclick="window.location.href='viza.html'" id="big-btn">замовити</button>
 </body>
 </html>

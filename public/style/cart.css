@@ -1,52 +1,62 @@
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f7f7f7;
-      
-    }
-    header {
-      background-color: #4CAF50;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-    }
-    .container {
-      padding: 2rem;
-    }
-    .cart-item {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      padding: 1rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-    }
-    .cart-item img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      margin-right: 1rem;
-    }
-    .cart-item-details {
-      flex: 1;
-    }
-    .price {
-      color: #4CAF50;
-      font-weight: bold;
-    }
-    button {
-      background-color: #f44336;
-      color: white;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      width: 120px;
-      height: 40px;
-    }
-    button:hover {
-      background-color: #d32f2f;
-    }
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    
+}
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+.container {
+    padding: 2rem;
+}
+.cart-item {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+.cart-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 1rem;
+}
+.cart-item-details {
+    flex: 1;
+}
+.price {
+    color: #4CAF50;
+    font-weight: bold;
+}
+button {
+    background-color: #f44336;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 120px;
+    height: 40px;
+}
+button:hover {
+    background-color: #d32f2f;
+}
+#big-btn{
+    width: 160px;
+    height: 60px;
+    font-size: 20px;
+    margin-left: 50px;
+    margin-top: 16px;
+}
+h3{
+    margin-left: 24px;
+}
 

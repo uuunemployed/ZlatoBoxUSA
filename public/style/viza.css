@@ -1,0 +1,57 @@
+#shippingForm {
+  max-width: 400px;
+  margin: 30px auto 0px;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+#shippingForm h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+#shippingForm label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+#shippingForm input {
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.button-country{
+    display: flex;
+    justify-content: space-around;
+}
+
+button {
+    background-color: #f44336;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 120px;
+    height: 40px;
+}
+button:hover {
+    background-color: #d32f2f;
+}
+
+#region{
+    margin-top: 24px;
+}
+
+#radio-p1, #radio-p2{
+    margin: 0px;
+}
