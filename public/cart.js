@@ -24,7 +24,7 @@ if (cart.length === 0) {
         <img src="${item.image}" alt="${item.name}">
         <div class="cart-item-details">
         <h2>${item.name}</h2>
-        <p class="price">${item.price} ₴</p>
+        <p class="price">${item.price} $</p>
         <p>${item.description}</p>
         <button onclick="removeItem(${index})">Видалити</button>
         </div>
@@ -38,81 +38,98 @@ function removeItem(index) {
     location.reload();
 }
 
-function showOptions() {
-  document.getElementById('radio-container').style.display = 'block';
-}
-
-
-let amount = 0;
-let useFixedAmount = false;
-
-function radioSelected(value) {
-  const liqpayBlock = document.getElementById('liqpay_checkout');
-
-  if (value === 'option1') {
-    amount = 100;
-    useFixedAmount = true;
-
-    // Очищаємо liqpay блок перед новим рендером
-    liqpayBlock.innerHTML = '';
-    liqpayBlock.style.display = 'block';
-
-    // ініціюємо оплату з 100 грн
-    startPayment();
-
-  } else if (value === 'option2') {
-    useFixedAmount = false;
-
-    // перерахунок загальної суми
-    calculateTotal(); // цей виклик має оновити змінну amount
-
-    liqpayBlock.innerHTML = '';
-    liqpayBlock.style.display = 'block';
-
-    // ініціюємо оплату з обрахованою сумою
-    startPayment();
-  }
-}
-
-// Підрахунок суми з кошика
 function calculateTotal() {
-  if (useFixedAmount) return; // не перераховуємо, якщо фіксована ціна
-
   const priceElements = document.querySelectorAll('.price');
   let total = 0;
-
+  
   priceElements.forEach(el => {
-    const price = parseFloat(el.textContent.replace(/[^\d.]/g, ''));
+    const text = el.textContent || '';
+    const price = parseFloat(text.replace(/[^\d.]/g, ''));
     if (!isNaN(price)) total += price;
   });
-
-  amount = total.toFixed(2);
-  const totalElements = document.querySelectorAll('.total');
-    totalElements.forEach(el => el.textContent = amount);
+  
+  document.getElementById('total').textContent = total.toFixed(2);
 }
 
-// Викликаємо після виводу товарів
-calculateTotal();
+if (cart.length > 0) {
+  calculateTotal();
+}
 
-// Оплата
-async function startPayment() {
-  if (amount <= 0) {
-    alert("Сума некоректна");
-    return;
+const buttonUa = document.getElementById('radio-div');
+const buttonCheh = document.getElementById('Cheh-div');
+
+function toggleBox1() {
+      amount = amount = document.getElementById('total').textContent;
+  buttonUa.style.display = "none";
+  buttonCheh.style.display = (buttonCheh.style.display === "none" || buttonCheh.style.display === "") ? "block" : "none";
+  clearLiqpayContainers();
+  startPayment('liqpay_checkout_cheh', amount);  
+}
+
+function toggleBox2() {
+  buttonCheh.style.display = "none";
+  buttonUa.style.display = (buttonUa.style.display === "none" || buttonUa.style.display === "") ? "block" : "none";
+  clearLiqpayContainers();
+}
+
+function clearLiqpayContainers() {
+  document.getElementById('liqpay_checkout_ua').innerHTML = '';
+  document.getElementById('liqpay_checkout_cheh').innerHTML = '';
+}
+
+let amount = document.getElementById('total').textContent;
+
+async function startPayment(containerId, amount) {
+  try {
+    const response = await fetch('/create-payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount })
+    });
+
+    const { data, signature } = await response.json();
+
+    const container = document.getElementById(containerId);
+    container.innerHTML = ''; // Очищаємо контейнер перед вставкою
+
+    LiqPayCheckout.init({
+      data,
+      signature,
+      embedTo: `#${containerId}`,
+      mode: "embed"
+    }).on("liqpay.callback", function (data) {
+      console.log("callback", data);
+    }).on("liqpay.ready", function (data) {
+      console.log("ready", data);
+    }).on("liqpay.close", function (data) {
+      console.log("close", data);
+    });
+
+  } catch (error) {
+    console.error('Помилка при запуску оплати:', error);
   }
-
-  const response = await fetch('/create-payment', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ amount })
-  });
-
-  const { data, signature } = await response.json();
-
-  LiqPayCheckout.init({
-    data,
-    signature,
-    embedTo: "#liqpay_checkout",
-    mode: "embed"
-  });
 }
+
+
+function radio() {
+  amount = '5'; 
+  startPayment('liqpay_checkout_ua', amount);
+}
+
+function radioCart() {
+  amount =     amount = document.getElementById('total').textContent;
+  startPayment('liqpay_checkout_ua', amount);  
+}
+
+// function buttonpay1() {
+//   if (!amount) {
+//     console.log('Помилка: amount не встановлено');
+//     return;
+//   }
+//   startPayment('liqpay_checkout_ua', amount);
+// }
+
+// function buttonpay2() {
+//     amount = document.getElementById('total').textContent;
+//   startPayment('liqpay_checkout_cheh', amount);
+// }

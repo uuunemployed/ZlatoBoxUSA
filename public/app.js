@@ -19,7 +19,7 @@ function renderProducts(products) {
       <img src="${p.image}"/>
       <div class="card-content">
         <h2>${p.name}</h2>
-        <p class="price">${p.price} ₴</p>
+        <p class="price">${p.price} $</p>
         <p>${p.description}</p>
         <button class="add-to-cart" onclick='addToCart(${JSON.stringify(p)})'>Додати в кошик</button>
       </div>

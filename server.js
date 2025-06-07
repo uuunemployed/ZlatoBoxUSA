@@ -27,7 +27,7 @@ app.post('/create-payment', (req, res) => {
     version: '3',
     action: 'pay',
     amount: amount.toString(),
-    currency: 'UAH',
+    currency: 'USD',
     description: 'Тестова оплата',
     order_id: 'order_' + Date.now(),
     result_url: 'https://yourdomain.com/thank-you'
@@ -42,3 +42,5 @@ app.post('/create-payment', (req, res) => {
 app.listen(3000, () => {
   console.log('Server running on http://localhost:3000');
 });
+
+app.use(express.static('public'));
