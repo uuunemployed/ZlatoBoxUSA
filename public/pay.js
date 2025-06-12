@@ -1,4 +1,10 @@
 const amount = parseFloat(localStorage.getItem('cartTotal')) || 0;
+let country = localStorage.getItem('country') || 'UA';
+if(country === 'UA'){
+  country = 'UAH';
+} else{
+  country = 'EUR'
+}
 console.log('Сума для оплати:', amount);
 
 
@@ -9,7 +15,7 @@ async function startPayment() {
     const response = await fetch('/create-payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount })
+      body: JSON.stringify({ amount, country })
     });
 
     const { data, signature } = await response.json();

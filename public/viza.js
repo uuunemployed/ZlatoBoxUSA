@@ -36,3 +36,128 @@ function radio2() {
     elem2.style.display = 'block';
     elem.style.display = 'none';
 }
+
+const API_KEY = '477c3d7e4d1012b246f9f7039c756e64'; // 🔑 встав свій ключ
+
+const regionSelect = document.getElementById('region');
+const citySelect = document.getElementById('city');
+const warehouseSelect = document.getElementById('warehouse');
+
+let cityRef = ''; // збереження Ref міста
+
+// 1. Завантаження областей
+async function loadRegions() {
+  const response = await fetch("https://api.novaposhta.ua/v2.0/json/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      apiKey: API_KEY,
+      modelName: "Address",
+      calledMethod: "getAreas",
+      methodProperties: {}
+    })
+  });
+
+  const data = await response.json();
+
+  if (data.success) {
+    data.data.forEach(area => {
+      const option = document.createElement("option");
+      option.value = area.Ref;
+      option.textContent = area.Description;
+      regionSelect.appendChild(option);
+    });
+  }
+}
+
+// 2. Завантаження міст по області
+regionSelect.addEventListener('change', async () => {
+  const areaRef = regionSelect.value;
+  citySelect.disabled = true;
+  warehouseSelect.disabled = true;
+  citySelect.innerHTML = '<option>Завантаження міст...</option>';
+  warehouseSelect.innerHTML = '<option>Оберіть місто</option>';
+
+  const response = await fetch("https://api.novaposhta.ua/v2.0/json/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      apiKey: API_KEY,
+      modelName: "Address",
+      calledMethod: "getCities",
+      methodProperties: {
+        AreaRef: areaRef
+      }
+    })
+  });
+
+  const data = await response.json();
+
+  citySelect.innerHTML = '<option value="">Оберіть місто</option>';
+  if (data.success) {
+    data.data.forEach(city => {
+      const option = document.createElement("option");
+      option.value = city.Ref;
+      option.textContent = city.Description;
+      citySelect.appendChild(option);
+    });
+    citySelect.disabled = false;
+  }
+});
+
+// 3. Завантаження відділень по місту
+citySelect.addEventListener('change', async () => {
+  const cityRef = citySelect.value;
+  warehouseSelect.disabled = true;
+  warehouseSelect.innerHTML = '<option>Завантаження відділень...</option>';
+
+  const response = await fetch("https://api.novaposhta.ua/v2.0/json/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      apiKey: API_KEY,
+      modelName: "AddressGeneral",
+      calledMethod: "getWarehouses",
+      methodProperties: {
+        CityRef: cityRef
+      }
+    })
+  });
+
+  const data = await response.json();
+
+  warehouseSelect.innerHTML = '<option value="">Оберіть відділення</option>';
+  if (data.success) {
+    data.data.forEach(wh => {
+      const option = document.createElement("option");
+      option.value = wh.SiteKey;
+      option.textContent = wh.Description;
+      warehouseSelect.appendChild(option);
+    });
+    warehouseSelect.disabled = false;
+  }
+});
+
+loadRegions();
+
+
+function toggleBox1() {
+  document.getElementById("Cheh-div").style.display = "block";
+  document.getElementById("radio-div").style.display = "none";
+}
+
+function toggleBox2() {
+  document.getElementById("Cheh-div").style.display = "none";
+  document.getElementById("radio-div").style.display = "block";
+}
+
+function radio1() {
+  document.getElementById("radio-p").style.display = "block";
+  document.getElementById("radio-p2").style.display = "none";
+}
+
+function radio2() {
+  document.getElementById("radio-p2").style.display = "block";
+  document.getElementById("radio-p").style.display = "none";
+}
+

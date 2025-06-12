@@ -1,31 +1,70 @@
-const cart = JSON.parse(localStorage.getItem('cart')) || [];
-updateCartButton();
+  const burger = document.getElementById('burger');
+  const nav = document.getElementById('nav');
+  const closeBtn = document.getElementById('nav-div-2');
 
-fetch("https://opensheet.elk.sh/19o25EhVW1vjLp6FDSy02vXEGObD506kyyG3qrE1iM_c/prod")
-  .then(response => response.json())
-  .then(products => {
-    console.log(products[0]);
-    renderProducts(products);
-  })
-  .catch(err => {
-    console.error('Помилка завантаження даних:', err);
-    document.getElementById("product-list").innerHTML = '<p>Не вдалося завантажити товари.</p>';
+  burger.addEventListener('click', () => {
+    nav.classList.toggle('active');
   });
 
-function renderProducts(products) {
-  const list = document.getElementById("product-list");
-  list.innerHTML = products.map((p, i) => `
-    <article class="card">
-      <img src="${p.image}"/>
-      <div class="card-content">
-        <h2>${p.name}</h2>
-        <p class="price">${p.price} $</p>
-        <p>${p.description}</p>
-        <button class="add-to-cart" onclick='addToCart(${JSON.stringify(p)})'>Додати в кошик</button>
-      </div>
-    </article>
-  `).join('');
+    closeBtn.addEventListener('click', () => {
+    nav.classList.remove('active');
+  }); 
+  
+function updatePrices(country) {
+  const prices = document.querySelectorAll('.price');
+  prices.forEach(priceEl => {
+    if (country === 'UA') {
+      priceEl.textContent = `${priceEl.dataset.uah} грн`;
+    } else if (country === 'CZ') {
+      priceEl.textContent = `${priceEl.dataset.czk} Kč`;
+      let countryPay = 'UAH';
+    }
+  });
 }
+
+
+function selectCountry(country) {
+  localStorage.setItem('country', country);
+  updatePrices(country);
+  document.getElementById('country-modal').style.display = 'none';
+}
+
+// --- Завантаження сторінки ---
+window.addEventListener('DOMContentLoaded', () => {
+  const country = localStorage.getItem('country');
+  if (!country) {
+    document.getElementById('country-modal').style.display = 'flex';
+  }
+
+  // Завантажуємо продукти
+  fetch("https://opensheet.elk.sh/19o25EhVW1vjLp6FDSy02vXEGObD506kyyG3qrE1iM_c/prod")
+    .then(res => res.json())
+    .then(products => {
+      const productList = document.getElementById('product-list');
+      productList.innerHTML = products.map(p => `
+          <article class="card" onclick="window.location.href='product.html?id=${p.id}'">
+            <div class="img-card">
+              <img src="${p.image}" />
+            </div>
+            <div class="card-content">
+              <h2>${p.name}</h2>
+              <p class="description">${p.description}</p>
+              <div class="price-botton">
+                <p class="price" data-uah="${p.price}" data-czk="${p.price2}"></p>
+                <button class="add-to-cart" onclick='addToCart(${JSON.stringify(p)})'>Додати в кошик</button>
+              </div>
+            </div>
+          </article>
+      `).join('');
+      if (country) updatePrices(country);
+    });
+
+  // Оновлення кнопки кошика
+  updateCartButton();
+});
+
+// --- Функції роботи з кошиком ---
+const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 function addToCart(product) {
   cart.push(product);
@@ -35,12 +74,9 @@ function addToCart(product) {
 
 function updateCartButton() {
   const count = cart.length;
-  document.getElementById('cart-button').innerText = `Кошики (${count})`;
-} 
-window.addEventListener('pageshow', function (event) {
-    if (event.persisted) {
-      // Якщо сторінка завантажена з кешу (наприклад, після натискання "назад")
-      location.reload();
-    }
-  });
+  const btn = document.getElementById('cart-button');
+  if (btn) btn.innerText = `Кошик (${count})`;
+}
+
+
 

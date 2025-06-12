@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Інформація про товар</title>
+</head>
+<body>
+  <h1 id="product-name">Завантаження...</h1>
+  <img id="product-image" style="max-width: 400px;" />
+  <p id="product-price"></p>
+  <p id="product-description"></p>
+
+  <script>
+    const country = localStorage.getItem('country') || 'UA';
+    const amount = parseFloat(localStorage.getItem('cartTotal')) || 0;
+    console.log('Сума для оплати:', amount);
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
+
+  fetch("https://opensheet.elk.sh/19o25EhVW1vjLp6FDSy02vXEGObD506kyyG3qrE1iM_c/prod")
+  .then(res => res.json())
+  .then(products => {
+    const product = products.find(p => p.id === productId);
+    if (!product) {
+      document.body.innerHTML = "<p>Товар не знайдено</p>";
+      return;
+    }
+
+    document.getElementById("product-name").textContent = product.name;
+    document.getElementById("product-image").src = product.image;
+    if(country === 'UA'){
+      document.getElementById("product-price").textContent = product.price + " грн";
+    } else{
+      document.getElementById("product-price").textContent = product.price2 + " Kč";
+    }
+    document.getElementById("product-description").textContent = product.description;
+  });
+  </script>
+</body>
+</html>

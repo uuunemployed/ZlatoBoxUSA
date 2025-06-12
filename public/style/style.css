@@ -1,75 +1,402 @@
-body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f7f7f7;
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Commissioner:wght@100..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Homemade+Apple&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=League+Script&family=Mrs+Saint+Delafield&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playwrite+RO:wght@100..400&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sacramento&family=Signika+Negative:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Commissioner:wght@100..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Gelasio:ital,wght@0,400..700;1,400..700&family=Homemade+Apple&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=League+Script&family=Mrs+Saint+Delafield&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playwrite+RO:wght@100..400&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sacramento&family=Signika+Negative:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Commissioner:wght@100..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Gelasio:ital,wght@0,400..700;1,400..700&family=Homemade+Apple&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=League+Script&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Mrs+Saint+Delafield&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playwrite+RO:wght@100..400&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sacramento&family=Signika+Negative:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Commissioner:wght@100..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Gelasio:ital,wght@0,400..700;1,400..700&family=Homemade+Apple&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=League+Script&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Mrs+Saint+Delafield&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playwrite+RO:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sacramento&family=Signika+Negative:wght@300..700&display=swap');
+
+*{
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+header{
+  padding: 16px 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000; 
+  margin: 0;
+  border-bottom: #966D50 1px solid;
+  background-color: #fff;
+}
+
+.header-content{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+}
+
+.header-content-2{
+  display: flex;
+  justify-content: space-between;
+  gap: 48px;
+  ul{
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+    align-items: center;
+    li{
+      list-style-type: none;
+      a{
+        text-decoration: none;
+        color: #966D50;
+        font-size: 20px;
+        font-weight: 500;
+        font-family: Inter;
+      }
+      a:hover{
+        text-decoration: underline;
+      }
     }
-    header {
-      background-color: #4CAF50;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+  }
+  button{
+    all:unset;
+  }
+}
+
+.sect-1{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding:  48px 0px;
+  display: flex;
+  justify-content: center;
+  img{
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.sect-1-content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  p{
+    font-family: Gelasio;
+    font-size: 32px;
+    color: #7A564C;
+  }
+  button{
+    all : unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 196px;
+    height: 46px;
+    border: 1px #000 solid;
+    border-radius: 8px;
+    font-family: Gelasio;
+    font-size: 14px;
+    font-weight: 500;
+    color: #725C51;
+    margin-top: 48px;
+  }
+}
+
+h1{
+  font-family: Gelasio;
+  font-size: 128px;
+  font-weight: 500;
+  color: #876A54;
+}
+
+#burger{
+  display: none;
+}
+
+.menu-nav{
+  display: flex;
+  justify-content: space-between;
+  gap: 36px;
+}
+
+.nav {
+  flex-direction: column;
+  align-items: end;
+  gap: 96px;
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  padding: 24px;
+  width: 391px;
+  height: auto;
+  background-color: #FFF8F8;
+  .nav-ul, p{
+    width: 100%;
+  }
+  p{
+    height: 36px;
+    text-align: center;
+    font-family: Gelasio;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .nav-ul{
+    display: flex;
+    flex-direction: column;
+    li{
+        list-style-type: none;
+        border-top: 1px #7A564C solid;
+        border-bottom: 1px #7A564C solid; 
+        padding: 12px 0px;
+        a{
+            text-transform: uppercase;
+            font-family: Merriweather;
+            color: #966D50;
+            text-decoration: none;
+            font-family: Inter;
+            font-size: 36px;
+            font-weight: 700;
+        }
     }
-    header h1 {
-      margin: 0;
+}
+}
+
+.nav.active {
+  display: flex;
+}
+
+#photo-sect-2{
+  width: 100%;
+  height: auto;
+}
+
+.sect-2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 96px;
+  h2{
+    font-family: Inter;
+    color: #966D50;
+    font-weight: 700;
+    font-size: 128px;
+  }
+}
+
+.container {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.card {
+  background: rgba(255, 255, 255, 0);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  border: 1px #966D50 solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.card img{
+  width: 60% !important;
+  height: auto;
+  object-fit: cover;
+}
+
+.img-card{
+  min-height: 180px;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.card-content{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 80%;
+  min-height: 50%;
+}
+
+.card-content h2{
+  display: flex;
+  align-items: center;   /* вертикальне вирівнювання */
+  font-family: Poppins;
+  color: #966D50;
+  font-weight: 600;
+  font-size: 20px;
+  text-decoration: none;
+  min-height: 63px;
+  margin: 0px;
+}
+
+.description{
+  color: #BB9E88;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: Poppins;
+}
+
+.price-botton{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price{
+  color: #BB9E88;
+  font-size: 24px;
+  font-weight: 500;
+  font-family: Poppins;
+
+}
+
+.add-to-cart {
+  all : unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 149px;
+  height: 56px;
+  background-color: #966D50;
+  border-radius: 10px;
+  font-family: Poppins;
+  color: #F8EFE6;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+@media (max-width: 1500px){
+  .header-content{
+    width: 80% !important;
+  }
+  .header-content-2{
+    gap: 24px;
+  }
+  h1{
+    font-size: 110px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .first-ul{
+    display: none !important;
+  }
+    #burger{
+      display: block !important;
+      
+  }
+  .header-content{
+    width: 90% !important;
+  }
+  h1{
+    font-size: 96px;
+  }
+  .container{
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .card{
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  h1{
+    font-size: 48px;  
+    margin: 0px;  
+  }
+  .sect-2-h2{
+    font-size: 64px !important; 
+  }
+  .card{
+    padding: 24px 8px;
+  }
+    .container{
+    padding: 0px;
+  }
+  .card-content h2{
+    font-size: 14px;
+  }
+  .card-content{
+    width: 90%;
+  }
+  .price-botton{
+    flex-direction: column;
+    gap: 12px;
+  }
+  #sect-1-p{
+    font-size: 14px;
+  }
+    header{
+    padding: 14px 16px;
+  }
+  .img-card{
+    min-height: 100px;
+  }
+  #cart-button{
+    svg{
+      width: 22px;
+      height: 22px;
     }
-    #cart-button {
-      background-color: white;
-      color: #4CAF50;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-right: 1rem;
+  }
+  .logo{
+    svg{
+      width: 98px;
+      height: 34px;
     }
-    .container {
-      padding: 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
+  }
+    #burger{
+    svg{
+      width: 36px;
+      height: 30px;
     }
-    .card {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      overflow: hidden;
-      transition: transform 0.2s ease;
+  }
+}
+
+@media (max-width: 480px) {
+    .logo{
+    svg{
+      width: 73px;
+      height: 23px;
     }
-    .card:hover {
-      transform: scale(1.02);
+  }
+  .header-content{
+    width: 100% !important;
+  }
+  header{
+    padding: 8px 16px;
+  }
+  #cart-button{
+    svg{
+          width: 18px;
+    height: 18px;
     }
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
+  }
+  #burger{
+    svg{
+      width: 32px;
+      height: 26px;
     }
-    .card-content {
-      padding: 1rem;
-    }
-    .card-content h2 {
-      margin: 0 0 0.5rem 0;
-      font-size: 1.25rem;
-    }
-    .card-content p {
-      margin: 0.5rem 0;
-    }
-    .price {
-      color: #4CAF50;
-      font-weight: bold;
-    }
-    button.add-to-cart {
-      background-color: #4CAF50;
-      color: white;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 1rem;
-    }
-    button.add-to-cart:hover {
-      background-color: #45a049;
-    }
+  }
+  .nav.active{
+    top: 0;
+    right: 0;
+  }
+  #photo-sect-1{
+    display: none;
+  }
+  #photo-sect-2{
+    display: block !important;
+  }
+  .price{
+    font-size: 20px;
+  }
+  .add-to-cart{
+    width: 120px;
+    height: 46px;
+  }
+}
+

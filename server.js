@@ -1,3 +1,4 @@
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
@@ -9,8 +10,8 @@ app.use(bodyParser.json());
 // Підключаємо статичні файли з папки public
 app.use(express.static(path.join(__dirname, 'public')));
 
-const PUBLIC_KEY = 'sandbox_i41743276606';
-const PRIVATE_KEY = 'sandbox_gerMEZuMEEohyfuwZuSfviXO6ClNPKkRNWPby83S';
+const PUBLIC_KEY = 'sandbox_i10822128511';
+const PRIVATE_KEY = 'sandbox_qECwRS3ZH91wXEXVBHilk2w5UicL8CpJxXARlBDt';
 
 function base64(data) {
   return Buffer.from(data).toString('base64');
@@ -22,12 +23,13 @@ function sha1(string) {
 
 app.post('/create-payment', (req, res) => {
     const { amount } = req.body;
+    const { country } = req.body;
     const paymentData = {
     public_key: PUBLIC_KEY,
     version: '3',
     action: 'pay',
     amount: amount.toString(),
-    currency: 'USD',
+    currency: country,
     description: 'Тестова оплата',
     order_id: 'order_' + Date.now(),
     result_url: 'https://yourdomain.com/thank-you'

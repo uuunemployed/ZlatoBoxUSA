@@ -48,10 +48,30 @@ button:hover {
     background-color: #d32f2f;
 }
 
-#region{
-    margin-top: 24px;
-}
-
 #radio-p1, #radio-p2{
     margin: 0px;
+}
+
+select {
+  appearance: none; /* ховає стрілочку браузера */
+  background-color: #f8f8f8;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 10px 40px 10px 15px;
+  font-size: 16px;
+  color: #333;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 20px;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+select:focus {
+  outline: none;
+  border-color: #0077ff;
+  background-color: #eef6ff;
 }
