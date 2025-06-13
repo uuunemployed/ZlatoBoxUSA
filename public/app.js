@@ -42,13 +42,13 @@ window.addEventListener('DOMContentLoaded', () => {
     .then(products => {
       const productList = document.getElementById('product-list');
       productList.innerHTML = products.map(p => `
-          <article class="card" onclick="window.location.href='product.html?id=${p.id}'">
+          <article class="card">
             <div class="img-card">
-              <img src="${p.image}" />
+              <img onclick="window.location.href='product.html?id=${p.id}'" src="${p.image}" />
             </div>
             <div class="card-content">
-              <h2>${p.name}</h2>
-              <p class="description">${p.description}</p>
+              <h2 onclick="window.location.href='product.html?id=${p.id}'">${p.name}</h2>
+              <p class="description" onclick="window.location.href='product.html?id=${p.id}'">${p.description}</p>
               <div class="price-botton">
                 <p class="price" data-uah="${p.price}" data-czk="${p.price2}"></p>
                 <button class="add-to-cart" onclick='addToCart(${JSON.stringify(p)})'>Додати в кошик</button>
@@ -67,16 +67,28 @@ window.addEventListener('DOMContentLoaded', () => {
 const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 function addToCart(product) {
+  const cart = JSON.parse(localStorage.getItem('cart')) || []; // 🔄 актуальне значення
   cart.push(product);
   localStorage.setItem('cart', JSON.stringify(cart));
   updateCartButton();
 }
-
 function updateCartButton() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
   const count = cart.length;
   const btn = document.getElementById('cart-button');
-  if (btn) btn.innerText = `Кошик (${count})`;
+
+  if (btn) {
+    if (count >= 1) {
+      btn.style.display = 'flex';
+      btn.innerText = `${count}`;
+    } else {
+      btn.style.display = 'none';
+    }
+  }
 }
+
+  window.addEventListener('pageshow', updateCartButton);
+
 
 
 
