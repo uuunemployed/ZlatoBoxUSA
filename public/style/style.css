@@ -145,7 +145,6 @@ h1{
     flex-direction: column;
     li{
         list-style-type: none;
-        border-top: 1px #7A564C solid;
         border-bottom: 1px #7A564C solid; 
         padding: 12px 0px;
         a{
@@ -157,12 +156,59 @@ h1{
             font-size: 36px;
             font-weight: 700;
         }
-    }
+      }
+  }
 }
+
+#first-li{
+  border-top: 1px #7A564C solid; 
+}
+
+#last-li{
+  border-bottom: 1px #7A564C solid; 
 }
 
 .nav.active {
   display: flex;
+}
+
+.sect-1-2{
+  border-top: 1px #7A564C solid; 
+  border-bottom: 1px #7A564C solid; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0px;
+}
+
+.sect-1-2-content{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  gap: 24px;
+}
+
+.sect-1-2-content-block{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.sect-1-2-content-block-pp{
+  display: flex;
+  flex-direction: column;
+  p{
+    font-family: Inter;
+    color: #BB9E88;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  #big-p-sect-1{
+    font-size: 20px;
+    font-weight: 500;
+  }
 }
 
 #photo-sect-2{
@@ -172,16 +218,19 @@ h1{
 
 .sect-2{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 16px;
   margin-top: 96px;
-  h2{
+}
+
+  .sect-2-h2{
     font-family: Inter;
     color: #966D50;
     font-weight: 700;
     font-size: 128px;
   }
-}
 
 .container {
   padding: 2rem;
@@ -294,6 +343,50 @@ h1{
    display: none;
 }
 
+.sect-3{
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+  h2{
+    font-size: 74px;
+    border-bottom: 1px #966D50 solid;
+    border-top: 1px #966D50 solid;
+    padding: 24px 8%;
+  }
+
+}
+
+.sect-3-pp{
+  padding: 24px 8%;
+  display: flex;
+  flex-direction: column;
+  gap: 96px;
+  align-items: center;
+  .pp{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    max-width: 1920px;
+  }
+  #pp{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    max-width: 1920px;
+    p{
+      text-align: start;
+    }
+  }
+  p{
+    color: #966D50;
+    font-size: 30px;
+    font-weight: 400;
+    font-family: Inter;
+    max-width: 600px;
+    text-align: end;
+  }
+}
+
 @media (max-width: 1500px){
   .header-content{
     width: 80% !important;
@@ -333,7 +426,27 @@ h1{
     font-size: 12px;
     top: 0;
   }
+  .sect-1-2-content{
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+  }
+  .sect-2{
+    p{
+      display: block !important;
+      color: #B7907A;
+      font-size: 14px;
+      font-weight: 400;
+      font-family: Inter;
+      height: 36px;
+      text-align: center;
+    }
+  }
+  #small-h2{
+    font-size: 56px;
+  }
 }
+
 
 @media (max-width: 768px) {
   h1{
@@ -392,6 +505,31 @@ h1{
     height: 12px;
     font-size: 9px;
   }
+    .sect-2{
+    p{
+      font-size: 10px;
+    }
+  }
+    #small-h2{
+    font-size: 36px !important;
+  }
+  .sect-3-pp{
+    padding: 24px 4%;
+    gap: 24px;
+    .pp{
+      justify-content: start !important;
+    }
+    p{
+      width: 100%;
+      text-align: start;
+      max-width: 290px;
+      font-size: 20px;
+    }
+  }
+
+
+
+
 }
 
 @media (max-width: 480px) {
@@ -419,6 +557,12 @@ h1{
       height: 26px;
     }
   }
+  .nav{
+    gap: 48px;
+    a{
+      font-size: 24px !important;
+    }
+  }
   .nav.active{
     top: 0;
     right: 0;
@@ -441,6 +585,10 @@ h1{
     width: 10px;
     height: 10px;
     font-size: 8px;
+  }
+  #small-h2{
+    font-size: 32px !important;
+    padding: 22px 4%;
   }
 }
 
