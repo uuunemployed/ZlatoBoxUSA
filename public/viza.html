@@ -22,51 +22,8 @@
     <label for="email">Електронна пошта:</label>
     <input type="email" id="email" name="email" required>
 
-    <h3>Оплатa</h3>
-    <p>Виберіть країну, в якій бажаєте забрати товар:</p>
-    
-    <div class="button-country">
-      <button type="button" onclick="toggleBox1()">Чехія</button>
-      <button type="button" onclick="toggleBox2()">Україна</button>
-    </div>
-
     <!-- Україна -->
     <div style="display: none;" id="radio-div">
-      <label>
-        <input type="radio" name="group1" onclick="radio1()"> При отриманні
-      </label>
-      <p style="display: none;" id="radio-p">Якщо ви вибрали оплату при отриманні — мінімальна передоплата 5$</p>
-
-      <label>
-        <input type="radio" name="group1" onclick="radio2()"> Картою
-      </label>
-      <p style="display: none;" id="radio-p2">Якщо ви вибрали оплату картою — оплата повна</p>
-    </div>
-
-    <!-- Чехія -->
-    <div style="display: none;" id="Cheh-div">
-      <p>Якщо ви бажаєте отримати товар у Чехії — повна оплата</p>
-    </div>
-
-
-    <!-- Для Zásilkovna пошти (приховано зараз) -->
-    <script src="https://widget.packeta.com/v6/www/js/library.js"></script>
-    <button onclick="openZasilkovna()">Оберіть пункт видачі</button>
-    <p id="zasilkovna-branch-id"></p>
-
-    <script>
-      const p = document.getElementById('zasilkovna-branch-id');
-      function openZasilkovna() {
-        Packeta.Widget.pick('YOUR_API_KEY', function(point) {
-          document.getElementById('zasilkovna-branch-id').value = point.id;
-          alert("Обране відділення: " + point.name);
-          p.textContent = point.name
-        });
-      }
-    </script>
-
-    <!-- Для Нової пошти (приховано зараз) -->
-    <div style="display: none;">
       <label for="region">Область:</label>
       <select id="region">
         <option value="">Оберіть область</option>
@@ -85,11 +42,40 @@
       <select id="warehouse" disabled>
         <option value="">Спочатку оберіть місто</option>
       </select>
+      <label>
+        <input type="radio" name="group1" onclick="radio1()"> При отриманні
+      </label>
+      <p style="display: none;" id="radio-p">Якщо ви вибрали оплату при отриманні — мінімальна передоплата 200 грн</p>
+
+      <label>
+        <input type="radio" name="group1" onclick="radio2()"> Картою
+      </label>
+      <p style="display: none;" id="radio-p2">Якщо ви вибрали оплату картою — оплата повна</p>
     </div>
 
+
+
+    <!-- Для Zásilkovna пошти (приховано зараз) -->
+    <script src="https://widget.packeta.com/v6/www/js/library.js"></script>
+    <!-- Чехія -->
+    <div style="display: none;" id="Cheh-div">
+      <p>Якщо ви бажаєте отримати товар у Чехії — повна оплата</p>
+      <button onclick="openZasilkovna()">Оберіть пункт видачі</button>
+      <p id="zasilkovna-branch-id"></p>
+    </div>
+    <script>
+      const p = document.getElementById('zasilkovna-branch-id');
+      function openZasilkovna() {
+        Packeta.Widget.pick('YOUR_API_KEY', function(point) {
+          document.getElementById('zasilkovna-branch-id').value = point.id;
+          alert("Обране відділення: " + point.name);
+          p.textContent = point.name
+        });
+      }
+    </script>
   </form>
 
-  <button id="cart-button" onclick="location.href='pay.html'">Оплатa</button>
+  <button id="cart-button" onclick="location.href='pay.html'">Оплатити</button>
 
 </body>
 </html>

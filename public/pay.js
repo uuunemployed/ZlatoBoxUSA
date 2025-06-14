@@ -3,7 +3,7 @@ let country = localStorage.getItem('country') || 'UA';
 if(country === 'UA'){
   country = 'UAH';
 } else{
-  country = 'EUR'
+  country = 'USD'
 }
 console.log('Сума для оплати:', amount);
 

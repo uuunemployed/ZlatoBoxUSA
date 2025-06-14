@@ -51,7 +51,7 @@ window.addEventListener('DOMContentLoaded', () => {
               <p class="description" onclick="window.location.href='product.html?id=${p.id}'">${p.description}</p>
               <div class="price-botton">
                 <p class="price" data-uah="${p.price}" data-czk="${p.price2}"></p>
-                <button class="add-to-cart" onclick='addToCart(${JSON.stringify(p)})'>Додати в кошик</button>
+                <button class="add-to-cart" onclick='addToCart(${JSON.stringify(p)})'>до корзини</button>
               </div>
             </div>
           </article>
@@ -88,6 +88,13 @@ function updateCartButton() {
 }
 
   window.addEventListener('pageshow', updateCartButton);
+
+document.querySelectorAll('.faq-question').forEach(button => {
+  button.addEventListener('click', () => {
+    const faqItem = button.closest('.faq-item-content');
+    faqItem.classList.toggle('active');
+  });
+});
 
 
 

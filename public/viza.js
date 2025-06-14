@@ -1,6 +1,14 @@
 const buttonUa = document.getElementById('radio-div');
 const buttonCheh = document.getElementById('Cheh-div');
 
+const country = localStorage.getItem('country') || 'UA';
+
+if(country == 'UA'){
+  toggleBox2()
+} else if (country == 'CZ'){
+  toggleBox1()
+}
+
 function toggleBox1() {
   buttonUa.style.display = "none";
   buttonCheh.style.display = (buttonCheh.style.display === "none" || buttonCheh.style.display === "") ? "block" : "none"; 
@@ -22,7 +30,7 @@ const elem = document.getElementById('radio-p');
 const elem2 = document.getElementById('radio-p2');
 
 function radio1() {
-    amount = 5;
+    amount = 200;
     localStorage.setItem('cartTotal', amount);
     console.log('radio1 amount =', amount);
     elem.style.display = 'block';
@@ -140,24 +148,4 @@ citySelect.addEventListener('change', async () => {
 
 loadRegions();
 
-
-function toggleBox1() {
-  document.getElementById("Cheh-div").style.display = "block";
-  document.getElementById("radio-div").style.display = "none";
-}
-
-function toggleBox2() {
-  document.getElementById("Cheh-div").style.display = "none";
-  document.getElementById("radio-div").style.display = "block";
-}
-
-function radio1() {
-  document.getElementById("radio-p").style.display = "block";
-  document.getElementById("radio-p2").style.display = "none";
-}
-
-function radio2() {
-  document.getElementById("radio-p2").style.display = "block";
-  document.getElementById("radio-p").style.display = "none";
-}
 
