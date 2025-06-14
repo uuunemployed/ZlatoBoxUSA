@@ -4,6 +4,10 @@
     margin: 0px;
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
 #burger{
   display: none;
 }
@@ -354,6 +358,11 @@ footer{
     text-decoration: none;
     color: #966D50;
   }
+}
+
+#add-to-cart-btn.added {
+  background-color: green;
+  color: white;
 }
 
 @media (max-width: 1500px) {

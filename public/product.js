@@ -1,14 +1,24 @@
-    const burger = document.getElementById('burger');
-    const nav = document.getElementById('nav');
-    const closeBtn = document.getElementById('nav-div-2');
+const burger = document.getElementById('burger');        // кнопка для відкриття меню
+const nav = document.getElementById('nav');              // сам контейнер меню
+const closeBtn = document.getElementById('nav-div-2');   // кнопка з Х (svg)
+const navLinks = document.querySelectorAll('.nav-ul a'); // усі посилання в меню
 
-      burger.addEventListener('click', () => {
-    nav.classList.toggle('active');
-  });
+// Відкрити меню
+burger.addEventListener('click', () => {
+  nav.classList.add('active');
+});
 
-    closeBtn.addEventListener('click', () => {
+// Закрити меню по кнопці (Х)
+closeBtn.addEventListener('click', () => {
+  nav.classList.remove('active');
+});
+
+// Закрити меню після кліку на будь-яке посилання
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
     nav.classList.remove('active');
-  }); 
+  });
+});
 
 
     const country = localStorage.getItem('country') || 'UA';
@@ -17,7 +27,8 @@
     const params = new URLSearchParams(window.location.search);
     const productId = params.get("id");
 
-  fetch("https://opensheet.elk.sh/19o25EhVW1vjLp6FDSy02vXEGObD506kyyG3qrE1iM_c/prod")
+// --- Завантаження товару ---
+fetch("https://opensheet.elk.sh/19o25EhVW1vjLp6FDSy02vXEGObD506kyyG3qrE1iM_c/prod")
   .then(res => res.json())
   .then(products => {
     const product = products.find(p => p.id === productId);
@@ -28,35 +39,54 @@
 
     document.getElementById("product-name").textContent = product.name;
     document.getElementById("product-image").src = product.image;
-    if(country === 'UA'){
+
+    if (country === 'UA') {
       document.getElementById("product-price").textContent = product.price + " грн";
-    } else{
+    } else {
       document.getElementById("product-price").textContent = product.price2 + " $";
     }
+
     document.getElementById("product-description").textContent = product.description;
+
+    // Прив’язка до кнопки
+    const addBtn = document.getElementById("add-to-cart-btn");
+    addBtn.addEventListener("click", () => {
+      toggleProductInCart(product);
+      updateProductButton(product.id);
+    });
+
+    // Показати актуальний стан
+    updateProductButton(product.id);
   });
 
 
-
-const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-function addToCart(product) {
-  const cart = JSON.parse(localStorage.getItem('cart')) || []; // 🔄 актуальне значення
-  cart.push(product);
+// --- Кошик ---
+function toggleProductInCart(product) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const index = cart.findIndex(p => p.id === product.id);
+  if (index !== -1) {
+    cart.splice(index, 1); // Видалити
+  } else {
+    cart.push(product); // Додати
+  }
   localStorage.setItem('cart', JSON.stringify(cart));
   updateCartButton();
-
 }
-document.getElementById("add-to-cart-btn").addEventListener("click", () => {
-  fetch("https://opensheet.elk.sh/19o25EhVW1vjLp6FDSy02vXEGObD506kyyG3qrE1iM_c/prod")
-    .then(res => res.json())
-    .then(products => {
-      const product = products.find(p => p.id === productId);
-      if (product) {
-        addToCart(product);
-      }
-    });
-});
+
+function updateProductButton(productId) {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const addBtn = document.getElementById("add-to-cart-btn");
+  const inCart = cart.some(p => p.id === productId);
+
+  if (inCart) {
+    addBtn.classList.add("added");
+    addBtn.textContent = "У кошику";
+  } else {
+    addBtn.classList.remove("added");
+    addBtn.textContent = "до корзини";
+  }
+}
+
 function updateCartButton() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   const count = cart.length;
@@ -71,6 +101,12 @@ function updateCartButton() {
     }
   }
 }
+
+// Оновлюємо при поверненні на сторінку
+window.addEventListener("pageshow", () => {
+  updateCartButton();
+  updateProductButton(productId);
+});
 window.addEventListener('pageshow', updateCartButton);
 
 document.querySelectorAll('.faq-question').forEach(button => {

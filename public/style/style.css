@@ -10,6 +10,11 @@
     margin: 0px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+
 #country-modal {
   position: fixed;
   top: 0;
@@ -606,6 +611,26 @@ footer{
   }
 }
 
+  a {
+    outline: none;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  a:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  a:active {
+    background: none;
+    color: inherit;
+  }
+
+  a {
+  -webkit-tap-highlight-color: transparent; /* для Safari / мобільних */
+  }
+
 
 @media (max-width: 1500px){
   .header-content{
@@ -873,5 +898,19 @@ footer{
   .footer-content-2{
     border-top: 1px #966D50 solid;
   }
+}
+
+.add-to-cart.added {
+  background-color: #4CAF50;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+#sect-1,
+#small-h2,
+#sect-2-h2,
+#footer-content,
+#faq-left-content {
+  scroll-margin-top: 100px; /* Підлаштуй це під висоту твого хедера */
 }
 

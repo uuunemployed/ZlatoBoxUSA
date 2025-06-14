@@ -1,14 +1,26 @@
-  const burger = document.getElementById('burger');
-  const nav = document.getElementById('nav');
-  const closeBtn = document.getElementById('nav-div-2');
+const burger = document.getElementById('burger');        // кнопка для відкриття меню
+const nav = document.getElementById('nav');              // сам контейнер меню
+const closeBtn = document.getElementById('nav-div-2');   // кнопка з Х (svg)
+const navLinks = document.querySelectorAll('.nav-ul a'); // усі посилання в меню
 
-  burger.addEventListener('click', () => {
-    nav.classList.toggle('active');
-  });
+// Відкрити меню
+burger.addEventListener('click', () => {
+  nav.classList.add('active');
+});
 
-    closeBtn.addEventListener('click', () => {
+// Закрити меню по кнопці (Х)
+closeBtn.addEventListener('click', () => {
+  nav.classList.remove('active');
+});
+
+// Закрити меню після кліку на будь-яке посилання
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
     nav.classList.remove('active');
-  }); 
+  });
+});
+
+  
   
 function updatePrices(country) {
   const prices = document.querySelectorAll('.price');
@@ -36,58 +48,92 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('country-modal').style.display = 'flex';
   }
 
-  // Завантажуємо продукти
   fetch("https://opensheet.elk.sh/19o25EhVW1vjLp6FDSy02vXEGObD506kyyG3qrE1iM_c/prod")
     .then(res => res.json())
     .then(products => {
       const productList = document.getElementById('product-list');
       productList.innerHTML = products.map(p => `
-          <article class="card">
-            <div class="img-card">
-              <img onclick="window.location.href='product.html?id=${p.id}'" src="${p.image}" />
+        <article class="card">
+          <div class="img-card">
+            <img onclick="window.location.href='product.html?id=${p.id}'" src="${p.image}" />
+          </div>
+          <div class="card-content">
+            <h2 onclick="window.location.href='product.html?id=${p.id}'">${p.name}</h2>
+            <p class="description" onclick="window.location.href='product.html?id=${p.id}'">${p.description}</p>
+            <div class="price-botton">
+              <p class="price" data-uah="${p.price}" data-czk="${p.price2}"></p>
+              <button class="add-to-cart" data-id="${p.id}">до корзини</button>
             </div>
-            <div class="card-content">
-              <h2 onclick="window.location.href='product.html?id=${p.id}'">${p.name}</h2>
-              <p class="description" onclick="window.location.href='product.html?id=${p.id}'">${p.description}</p>
-              <div class="price-botton">
-                <p class="price" data-uah="${p.price}" data-czk="${p.price2}"></p>
-                <button class="add-to-cart" onclick='addToCart(${JSON.stringify(p)})'>до корзини</button>
-              </div>
-            </div>
-          </article>
+          </div>
+        </article>
       `).join('');
+
+      // Прив'язуємо обробники
+      document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', () => {
+          const productId = parseInt(button.dataset.id);
+          const product = products.find(p => parseInt(p.id) === productId);
+          if (product) addToCart(product);
+        });
+      });
+
       if (country) updatePrices(country);
+      updateAddToCartButtons();
     });
 
-  // Оновлення кнопки кошика
   updateCartButton();
 });
 
-// --- Функції роботи з кошиком ---
-const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
 function addToCart(product) {
-  const cart = JSON.parse(localStorage.getItem('cart')) || []; // 🔄 актуальне значення
-  cart.push(product);
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const index = cart.findIndex(p => parseInt(p.id) === parseInt(product.id));
+
+  if (index !== -1) {
+    cart.splice(index, 1); // Видаляємо
+  } else {
+    cart.push(product); // Додаємо
+  }
+
   localStorage.setItem('cart', JSON.stringify(cart));
   updateCartButton();
+  updateAddToCartButtons();
 }
+
 function updateCartButton() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   const count = cart.length;
   const btn = document.getElementById('cart-button');
 
   if (btn) {
-    if (count >= 1) {
-      btn.style.display = 'flex';
-      btn.innerText = `${count}`;
-    } else {
-      btn.style.display = 'none';
-    }
+    btn.style.display = count > 0 ? 'flex' : 'none';
+    btn.innerText = `${count}`;
   }
 }
 
-  window.addEventListener('pageshow', updateCartButton);
+function updateAddToCartButtons() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const buttons = document.querySelectorAll('.add-to-cart');
+
+  buttons.forEach(button => {
+    const productId = parseInt(button.dataset.id);
+    const inCart = cart.some(p => parseInt(p.id) === productId);
+
+    if (inCart) {
+      button.classList.add('added');
+      button.textContent = 'у кошику';
+    } else {
+      button.classList.remove('added');
+      button.textContent = 'до корзини';
+    }
+  });
+}
+
+window.addEventListener('pageshow', updateCartButton);
+
+window.addEventListener('pageshow', () => {
+  updateCartButton();
+  updateAddToCartButtons();
+});
 
 document.querySelectorAll('.faq-question').forEach(button => {
   button.addEventListener('click', () => {
