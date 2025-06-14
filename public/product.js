@@ -72,3 +72,10 @@ function updateCartButton() {
   }
 }
 window.addEventListener('pageshow', updateCartButton);
+
+document.querySelectorAll('.faq-question').forEach(button => {
+  button.addEventListener('click', () => {
+    const faqItem = button.closest('.faq-item-content');
+    faqItem.classList.toggle('active');
+  });
+});

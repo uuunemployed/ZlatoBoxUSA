@@ -556,6 +556,7 @@ footer{
   display: flex;
   justify-content: center;
   padding: 60px 20px;
+  margin-top: 48px;
 }
 
 .footer-content-1{
@@ -784,7 +785,7 @@ footer{
     p{
       width: 100%;
       text-align: start;
-      max-width: 290px;
+      max-width: 310px;
       font-size: 20px;
     }
   }

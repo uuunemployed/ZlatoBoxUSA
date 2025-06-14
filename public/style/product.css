@@ -156,11 +156,157 @@ header{
    display: none;
 }
 
+.sect-3{
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  h2{
+    font-size: 74px;
+    border-bottom: 1px #966D50 solid;
+    padding: 24px 8%;
+    font-family: Inter;
+    color: #966D50;
+    font-weight: 700;
+    font-size: 128px;
+  }
+}
+
+.sect-3-pp{
+  padding: 24px 8%;
+  display: flex;
+  flex-direction: column;
+  gap: 96px;
+  align-items: center;
+  .pp{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    max-width: 1920px;
+  }
+  #pp{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    max-width: 1920px;
+    p{
+      text-align: start;
+    }
+  }
+  p{
+    color: #966D50;
+    font-size: 30px;
+    font-weight: 400;
+    font-family: Inter;
+    max-width: 600px;
+    text-align: end;
+  }
+}
+
+.faq {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  border-bottom: 1px #966D50 solid;
+  border-top: 1px #966D50 solid;
+  padding-top: 48px;
+}
+
+.faq-left {
+  padding-right: 1rem;
+  border-right: 1px #966D50 solid;
+  display: flex;
+  justify-content: end;
+}
+.faq-left-content{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 24px;
+  padding-left: 3rem;
+  h2{
+  font-family: Merriweather;
+  font-size: 44px;
+  font-weight: 400;
+  color: #966D50;
+  }
+  p{
+      font-family: Merriweather;
+      font-size: 18px;
+      font-weight: 400;
+      color: #966D50;
+  }
+}
+
+.faq-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-item {
+  border: 1px solid #c9a98e;
+  overflow: hidden;
+  border-bottom: 1px #966D50 solid;
+}
+
+.faq-item-content{
+  width: 60%;
+  padding: 0px 8px 24px 8px;
+  border-right: 1px #966D50 solid;
+}
+
+.faq-question {
+  width: 100%;
+  background: #F8EFE6;
+  border: none;
+  padding: 1rem;
+  font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  border-radius: 8px;
+  font-family: Merriweather;
+  font-size: 24px;
+  font-weight: 400;
+  color: #966D50;
+}
+
+
+.faq-question::after {
+  content: "+";
+  position: absolute;
+  right: 1rem;
+  font-size: 1.2rem;
+}
+
+.faq-item-content.active .faq-question::after {
+  content: "–";
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 1rem;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  background: #F8EFE6;
+  margin-top: -10px;
+  border-radius: 0px 0px 8px 8px;
+    font-family: Merriweather;
+  font-size: 18px;
+  font-weight: 400;
+  color: #966D50;
+}
+
+.faq-item-content.active .faq-answer {
+  max-height: 300px; 
+  padding: 1rem;
+}
+
+
 footer{
   background-color: #F8EFE6;
   display: flex;
   justify-content: center;
   padding: 60px 20px;
+    margin-top: 48px;
 }
 
 .footer-content-1{
@@ -229,12 +375,49 @@ footer{
   .header-content{
     width: 90% !important;
   }
+    #small-h2{
+    font-size: 56px;
+  }
   #cart-button {
     left: 22%;
     width: 16px;
     height: 16px;
     font-size: 12px;
     top: 0;
+  }
+    .faq{
+    display: flex;
+    flex-direction: column;
+  }
+  .faq-item{
+    display: flex;
+    justify-content: center;
+  }
+  .faq-item-content{
+    border-left: 1px #966D50 solid;
+    width: 90% !important;
+  }
+  .faq-question,.faq-answer{
+    background-color: #fff;
+  }
+  .faq-question{
+    font-size: 20px;
+  }
+  .faq-left-content,.faq-left{
+    padding: 0px;
+  }
+  .faq-left{
+    justify-content: center;
+  }
+  .faq-left-content{
+    width: 80% !important;
+    h2{
+      font-weight: 700;
+      font-size: 36px;
+    }
+  }
+  .faq{
+    gap: 64px;
   }
   .footer-content-3{
     flex-direction: column;
@@ -280,6 +463,19 @@ footer{
     width: 12px;
     height: 12px;
     font-size: 9px;
+  }
+    .sect-3-pp{
+    padding: 24px 4%;
+    gap: 24px;
+    .pp{
+      justify-content: start !important;
+    }
+    p{
+      width: 100%;
+      text-align: start;
+      max-width: 310px;
+      font-size: 20px;
+    }
   }
     .footer-content{
     width: 100% !important;
@@ -333,6 +529,10 @@ footer{
     width: 10px;
     height: 10px;
     font-size: 8px;
+  }
+    #small-h2{
+    font-size: 32px !important;
+    padding: 22px 4%;
   }
     footer{
     padding: 0px;
