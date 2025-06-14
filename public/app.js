@@ -16,7 +16,7 @@ function updatePrices(country) {
     if (country === 'UA') {
       priceEl.textContent = `${priceEl.dataset.uah} грн`;
     } else if (country === 'CZ') {
-      priceEl.textContent = `${priceEl.dataset.czk} Kč`;
+      priceEl.textContent = `${priceEl.dataset.czk} $`;
       let countryPay = 'UAH';
     }
   });

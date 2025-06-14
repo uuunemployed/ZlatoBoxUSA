@@ -14,7 +14,7 @@ if (cart.length === 0) {
         <p class="price"
            data-uah="${item.price}"
            data-czk="${item.price2}">
-           ${country === 'UA' ? `${item.price} грн` : `${item.price2} Kč`}
+           ${country === 'UA' ? `${item.price} грн` : `${item.price2} $`}
         </p>
         <p>${item.description}</p>
         <button onclick="removeItem(${index})">Видалити</button>
@@ -56,7 +56,13 @@ function updateTotal() {
 const total = calculateCartTotal();
 localStorage.setItem('cartTotal', total.toFixed(2));
 console.log('Сума в кошику:', total.toFixed(2));
-document.getElementById('amountDisplay').textContent = total.toFixed(2);
+
+if(country == 'UA'){
+  document.getElementById('amountDisplay').textContent = total.toFixed(2) + " грн";
+} else if (country == 'CZ'){
+  document.getElementById('amountDisplay').textContent = total.toFixed(2) + " $";
+}
+
 
 
 

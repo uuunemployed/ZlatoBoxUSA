@@ -82,8 +82,8 @@ header{
   top: 0;
   z-index: 1000; 
   margin: 0;
-  border-bottom: #966D50 1px solid;
-  background-color: #fff;
+  /* border-bottom: #966D50 1px solid; */
+  background-color: #F8EFE6;
 }
 
 .header-content{
@@ -640,7 +640,7 @@ h1{
     }
   }
   .faq{
-    gap: 96px;
+    gap: 64px;
   }
 }
 
@@ -726,6 +726,9 @@ h1{
 }
 
 @media (max-width: 480px) {
+  .nav.active{
+    width: 100% !important;
+  }
     .logo{
     svg{
       width: 73px;
