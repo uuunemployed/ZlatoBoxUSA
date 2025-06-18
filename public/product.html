@@ -22,11 +22,10 @@
       </div>
       <div class="header-content-2">
             <ul class="first-ul">
-              <li><a href="index.html#sect-1">головна</a></li>
-              <li><a href="index.html##small-h2">про</a></li>
-              <li><a href="index.html##sect-2-h2">каталог</a></li>
-              <li><a href="index.html##footer-content">контакти</a></li>
-              <li><a href="index.html##faq-left-content">питання</a></li>
+              <li><a href="#sect-1">головна</a></li>
+              <li><a href="#small-h2">про</a></li>
+              <li><a href="#footer-content">контакти</a></li>
+              <li><a href="#faq-left-content">питання</a></li>
             </ul>
         <div class="empty-div"></div>
         <div class="menu-nav">
@@ -58,22 +57,40 @@
               </svg>
             </div>
             <ul class="nav-ul">
-              <li id="first-li"><a href="index.html#sect-1">Головна</a></li>
-              <li><a href="index.html#small-h2">Про</a></li>
-              <li><a href="index.html#sect-2-h2">Каталог</a></li>
-              <li><a href="index.html#footer-content">Контакти</a></li>
-              <li id="last-li"><a href="index.html#faq-left-content">Питання</a></li>
+              <li id="first-li"><a href="#sect-1">Головна</a></li>
+              <li><a href="#small-h2">Про</a></li>
+              <li><a href="#footer-content">Контакти</a></li>
+              <li id="last-li"><a href="#faq-left-content">Питання</a></li>
             </ul>
             <p>ZlatoBoxUSA</p>
           </nav>
     </div>
   </header>
-  <h1 id="product-name">Завантаження...</h1>
-  <img id="product-image" style="max-width: 400px;" />
-  <p id="product-price"></p>
-  <p id="product-description"></p>
-  <button id="add-to-cart-btn">до корзини</button>
-    <section class="sect-3">
+
+  
+  <main>
+    <div class="product">
+      <div class="product-content-1">
+        <img id="product-image" />
+      </div>
+      <div class="product-info">
+        <div class="about">
+          <div class="about-content">
+            <h1 id="product-name">Завантаження...</h1>
+            <p id="product-description"></p>
+            <div>
+              <p id="product-price"></p>
+            </div>
+          </div>
+          <button id="add-to-cart-btn">до корзини</button>
+        </div>
+        <p id="product-about"></p>
+      </div>
+    </div>
+  </main>
+
+
+  <section class="sect-3">
     <h2 id="small-h2" class="sect-2-h2"><i>ТРОХИ ПРО МЕНЕ ТА<br>ЦЕЙ МАГАЗИН </i></h2>
     <div class="sect-3-pp">
       <div class="pp">
@@ -96,7 +113,7 @@
   </section>
   <section class="faq">
   <div class="faq-left">
-    <div class="faq-left-content">
+    <div class="faq-left-content" id="faq-left-content">
       <h2>Запитання та відповіді</h2>
       <p>тут можуть бути запитання на які ви би хотіли почути відповідь</p>
     </div>
@@ -135,7 +152,7 @@
   </div>
   </section>
   <footer>
-      <div class="footer-content">
+      <div class="footer-content" id="footer-content">
         <p class="footer-content-1">ZlatoBox USA</p>
         <div class="footer-content-2">
           <div class="footer-content-2-2" >Товари з USA</div>

@@ -47,6 +47,7 @@ fetch("https://opensheet.elk.sh/19o25EhVW1vjLp6FDSy02vXEGObD506kyyG3qrE1iM_c/pro
     }
 
     document.getElementById("product-description").textContent = product.description;
+    document.getElementById("product-about").textContent = product.about;
 
     // Прив’язка до кнопки
     const addBtn = document.getElementById("add-to-cart-btn");
