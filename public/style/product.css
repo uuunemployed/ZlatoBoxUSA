@@ -145,7 +145,7 @@ header{
   top: 20px;
 }
 
-button:hover{
+.header-button:hover{
   text-decoration: underline;
 }
 
@@ -606,6 +606,9 @@ main{
   }
 }
 @media (max-width: 768px) {
+  #home-btn{
+    position: static;
+  }
   header{
     padding: 14px 16px;
   }

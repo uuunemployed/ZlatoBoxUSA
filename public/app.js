@@ -4,12 +4,12 @@ const closeBtn = document.getElementById('nav-div-2');   // кнопка зак�
 const navLinks = document.querySelectorAll('.nav-ul-button'); // усі кнопки в меню
 
 // Відкрити меню
-burger.addEventListener('click', () => {
+burger?.addEventListener('click', () => {
   nav.classList.add('active');
 });
 
 // Закрити меню по кнопці (Х)
-closeBtn.addEventListener('click', () => {
+closeBtn?.addEventListener('click', () => {
   nav.classList.remove('active');
 });
 
@@ -20,8 +20,6 @@ navLinks.forEach(link => {
   });
 });
 
-  
-  
 function updatePrices(country) {
   const prices = document.querySelectorAll('.price');
   prices.forEach(priceEl => {
@@ -33,20 +31,15 @@ function updatePrices(country) {
   });
 }
 
-function selectCountry(country) {
-  localStorage.setItem('country', country);
-  updatePrices(country);
-  document.getElementById('country-modal').style.display = 'none';
-}
-
 window.addEventListener('DOMContentLoaded', () => {
-  const country = localStorage.getItem('country');
-  const modalShown = localStorage.getItem('modalShown');
+  let country = sessionStorage.getItem('country');
+  console.log(country);
 
-  if (!country && !modalShown) {
+
+  if (!country) {
+    console.log(country);
     document.getElementById('country-modal').style.display = 'flex';
-    localStorage.setItem('modalShown', 'true');
-  }
+  } 
 
   fetch("https://opensheet.elk.sh/19o25EhVW1vjLp6FDSy02vXEGObD506kyyG3qrE1iM_c/prod")
     .then(res => res.json())
@@ -68,7 +61,6 @@ window.addEventListener('DOMContentLoaded', () => {
         </article>
       `).join('');
 
-      // Додаємо слухачі на кнопки
       document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', () => {
           const productId = parseInt(button.dataset.id);
@@ -84,14 +76,20 @@ window.addEventListener('DOMContentLoaded', () => {
   updateCartButton();
 });
 
+function selectCountry(country) {
+  sessionStorage.setItem('country', country);
+  updatePrices(country);
+  document.getElementById('country-modal').style.display = 'none';
+}
+
 function addToCart(product) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   const index = cart.findIndex(p => parseInt(p.id) === parseInt(product.id));
 
   if (index !== -1) {
-    cart.splice(index, 1); // Видаляємо
+    cart.splice(index, 1);
   } else {
-    cart.push(product); // Додаємо
+    cart.push(product);
   }
 
   localStorage.setItem('cart', JSON.stringify(cart));
@@ -128,8 +126,6 @@ function updateAddToCartButtons() {
   });
 }
 
-window.addEventListener('pageshow', updateCartButton);
-
 window.addEventListener('pageshow', () => {
   updateCartButton();
   updateAddToCartButtons();
@@ -148,13 +144,6 @@ function scrollToSection(id) {
     section.scrollIntoView({ behavior: 'smooth' });
   }
 }
-
-const homeBtn = document.getElementById('home-btn');
-
-homeBtn.addEventListener('click', () => {
-  window.location.href = 'index.html';  // або '/' якщо головна — це корінь сайту
-});
-
 
 
 
