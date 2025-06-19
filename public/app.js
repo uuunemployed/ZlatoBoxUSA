@@ -1,7 +1,7 @@
 const burger = document.getElementById('burger');        // кнопка для відкриття меню
-const nav = document.getElementById('nav');              // сам контейнер меню
-const closeBtn = document.getElementById('nav-div-2');   // кнопка з Х (svg)
-const navLinks = document.querySelectorAll('.nav-ul a'); // усі посилання в меню
+const nav = document.getElementById('nav');              // контейнер меню
+const closeBtn = document.getElementById('nav-div-2');   // кнопка закриття (svg)
+const navLinks = document.querySelectorAll('.nav-ul-button'); // усі кнопки в меню
 
 // Відкрити меню
 burger.addEventListener('click', () => {
@@ -29,11 +29,9 @@ function updatePrices(country) {
       priceEl.textContent = `${priceEl.dataset.uah} грн`;
     } else if (country === 'CZ') {
       priceEl.textContent = `${priceEl.dataset.czk} $`;
-      let countryPay = 'UAH';
     }
   });
 }
-
 
 function selectCountry(country) {
   localStorage.setItem('country', country);
@@ -41,11 +39,13 @@ function selectCountry(country) {
   document.getElementById('country-modal').style.display = 'none';
 }
 
-// --- Завантаження сторінки ---
 window.addEventListener('DOMContentLoaded', () => {
   const country = localStorage.getItem('country');
-  if (!country) {
+  const modalShown = localStorage.getItem('modalShown');
+
+  if (!country && !modalShown) {
     document.getElementById('country-modal').style.display = 'flex';
+    localStorage.setItem('modalShown', 'true');
   }
 
   fetch("https://opensheet.elk.sh/19o25EhVW1vjLp6FDSy02vXEGObD506kyyG3qrE1iM_c/prod")
@@ -68,7 +68,7 @@ window.addEventListener('DOMContentLoaded', () => {
         </article>
       `).join('');
 
-      // Прив'язуємо обробники
+      // Додаємо слухачі на кнопки
       document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', () => {
           const productId = parseInt(button.dataset.id);
@@ -140,6 +140,19 @@ document.querySelectorAll('.faq-question').forEach(button => {
     const faqItem = button.closest('.faq-item-content');
     faqItem.classList.toggle('active');
   });
+});
+
+function scrollToSection(id) {
+  const section = document.getElementById(id);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+const homeBtn = document.getElementById('home-btn');
+
+homeBtn.addEventListener('click', () => {
+  window.location.href = 'index.html';  // або '/' якщо головна — це корінь сайту
 });
 
 
