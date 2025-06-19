@@ -24,8 +24,10 @@ function updatePrices(country) {
   const prices = document.querySelectorAll('.price');
   prices.forEach(priceEl => {
     if (country === 'UA') {
+      localStorage.setItem('country', country);
       priceEl.textContent = `${priceEl.dataset.uah} грн`;
     } else if (country === 'CZ') {
+      localStorage.setItem('country', country);
       priceEl.textContent = `${priceEl.dataset.czk} $`;
     }
   });

@@ -2,6 +2,7 @@ const buttonUa = document.getElementById('radio-div');
 const buttonCheh = document.getElementById('Cheh-div');
 
 const country = localStorage.getItem('country') || 'UA';
+console.log(country);
 
 if(country == 'UA'){
   toggleBox2()

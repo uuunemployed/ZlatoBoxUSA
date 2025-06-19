@@ -1,6 +1,7 @@
 const cart = JSON.parse(localStorage.getItem('cart')) || [];
 const container = document.getElementById('cart-container');
 const country = localStorage.getItem('country') || 'UA';
+console.log(country);
 
 if (cart.length === 0) {
   container.innerHTML = '<p>Ваш кошик порожній.</p>';

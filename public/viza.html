@@ -12,10 +12,10 @@
 
   <form id="shippingForm"> 
     <header class="header">
-      <a href="" class="form_back_button"><svg width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7.25 1.5L0.75 8L7.25 14.5" stroke="#966D50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-</a>
+    <a href="" class="form_back_button"><svg width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M7.25 1.5L0.75 8L7.25 14.5" stroke="#966D50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    </a>
     <h2 class="form_title">Залиште свої дані</h2>
     <div class="none"></div>
     </header>
@@ -40,39 +40,48 @@
     </label>
     </div>
 
-    <div class="post_group newgroup">
-      <input type="text" class="post_input input"  id="post" placeholder=" " autocomplete="postal code" required> 
-      <label for="post" class="label_post label">
-      Поштовий індекс
-    </label>
-    </div>
-<<<<<<< HEAD
+    <div style="display: none;" id="radio-div">
+      <label for="region">Область:</label>
+      <select id="region">
+        <option value="">Оберіть область</option>
+      </select>
 
-    <div class="city_group newgroup">
-      <input type="text" class="city_input input"  id="city" placeholder=" " autocomplete="" required> 
-      <label for="city" class="label_city label">
-      Місто
-    </label>
+      <br><br>
+
+      <label for="city">Місто:</label>
+      <select id="city" disabled>
+        <option value="">Спочатку оберіть область</option>
+      </select>
+
+      <br><br>
+
+      <label for="warehouse">Відділення:</label>
+      <select id="warehouse" disabled>
+        <option value="">Спочатку оберіть місто</option>
+      </select>
+      <label>
+        <input type="radio" name="group1" onclick="radio1()"> При отриманні
+      </label>
+      <p style="display: none;" id="radio-p">Якщо ви вибрали оплату при отриманні — мінімальна передоплата 5$</p>
+      <p style="display: none;" id="radio-p">Якщо ви вибрали оплату при отриманні — мінімальна передоплата 200 грн</p>
+
+      <label>
+        <input type="radio" name="group1" onclick="radio2()"> Картою
+      </label>
+      <p style="display: none;" id="radio-p2">Якщо ви вибрали оплату картою — оплата повна</p>
     </div>
 
-    <div class="department_group group">
-      <input type="text" class="department_input input"  id="department" placeholder=" " autocomplete="" required> 
-      <label for="department" class="label_department label">
-      Відділення пошти
-    </label>
+    <div id="Cheh-div" style="display: none">
+      <p>Якщо ви бажаєте отримати товар у Чехії — повна оплата</p>
+      <button onclick="openZasilkovna()">Оберіть пункт видачі</button>
+      <p id="zasilkovna-branch-id"></p>
     </div>
-
-    <div class="country_group newgroup">
-      <input type="text" class="country_input input"  id="country" placeholder=" " autocomplete="country" required> 
-      <label for="country" class="label_country label">
-      Країна
-    </label>
-    </div>
-
     <button id="cart-button" onclick="location.href='pay.html'">Зберегти</button>
 
   </form>
-  
+
+
+  <script src="https://widget.packeta.com/v6/www/js/library.js"></script>
   <script>
       const p = document.getElementById('zasilkovna-branch-id');
       function openZasilkovna() {
@@ -84,9 +93,5 @@
       }
     </script>
   
-
-
-=======
->>>>>>> 372e1ea1764be379c2e674f805d0f861aec5018a
 </body>
 </html>
