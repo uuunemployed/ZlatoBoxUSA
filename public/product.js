@@ -1,25 +1,23 @@
-const burger = document.getElementById('burger');        // кнопка для відкриття меню
-const nav = document.getElementById('nav');              // сам контейнер меню
-const closeBtn = document.getElementById('nav-div-2');   // кнопка з Х (svg)
-const navLinks = document.querySelectorAll('.nav-ul a'); // усі посилання в меню
+const burger = document.getElementById('burger');       
+const nav = document.getElementById('nav');             
+const closeBtn = document.getElementById('nav-div-2');  
+const navLinks = document.querySelectorAll('.nav-ul-button'); 
 
-// Відкрити меню
+
 burger.addEventListener('click', () => {
   nav.classList.add('active');
 });
 
-// Закрити меню по кнопці (Х)
+
 closeBtn.addEventListener('click', () => {
   nav.classList.remove('active');
 });
 
-// Закрити меню після кліку на будь-яке посилання
 navLinks.forEach(link => {
   link.addEventListener('click', () => {
     nav.classList.remove('active');
   });
 });
-
 
     const country = localStorage.getItem('country') || 'UA';
     const amount = parseFloat(localStorage.getItem('cartTotal')) || 0;
@@ -27,7 +25,7 @@ navLinks.forEach(link => {
     const params = new URLSearchParams(window.location.search);
     const productId = params.get("id");
 
-// --- Завантаження товару ---
+
 fetch("https://opensheet.elk.sh/19o25EhVW1vjLp6FDSy02vXEGObD506kyyG3qrE1iM_c/prod")
   .then(res => res.json())
   .then(products => {
@@ -47,15 +45,14 @@ fetch("https://opensheet.elk.sh/19o25EhVW1vjLp6FDSy02vXEGObD506kyyG3qrE1iM_c/pro
     }
 
     document.getElementById("product-description").textContent = product.description;
+    document.getElementById("product-about").textContent = product.about;
 
-    // Прив’язка до кнопки
     const addBtn = document.getElementById("add-to-cart-btn");
     addBtn.addEventListener("click", () => {
       toggleProductInCart(product);
       updateProductButton(product.id);
     });
 
-    // Показати актуальний стан
     updateProductButton(product.id);
   });
 
@@ -65,9 +62,9 @@ function toggleProductInCart(product) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   const index = cart.findIndex(p => p.id === product.id);
   if (index !== -1) {
-    cart.splice(index, 1); // Видалити
+    cart.splice(index, 1); 
   } else {
-    cart.push(product); // Додати
+    cart.push(product); 
   }
   localStorage.setItem('cart', JSON.stringify(cart));
   updateCartButton();
@@ -102,7 +99,6 @@ function updateCartButton() {
   }
 }
 
-// Оновлюємо при поверненні на сторінку
 window.addEventListener("pageshow", () => {
   updateCartButton();
   updateProductButton(productId);
@@ -114,4 +110,17 @@ document.querySelectorAll('.faq-question').forEach(button => {
     const faqItem = button.closest('.faq-item-content');
     faqItem.classList.toggle('active');
   });
+});
+
+function scrollToSection(id) {
+  const section = document.getElementById(id);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+const homeBtn = document.getElementById('home-btn');
+
+homeBtn.addEventListener('click', () => {
+  window.location.href = 'index.html';  
 });

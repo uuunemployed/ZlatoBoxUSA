@@ -109,21 +109,27 @@ header{
     align-items: center;
     li{
       list-style-type: none;
-      a{
-        text-decoration: none;
-        color: #966D50;
-        font-size: 20px;
-        font-weight: 500;
-        font-family: Inter;
-      }
-      a:hover{
-        text-decoration: underline;
-      }
     }
   }
-  button{
+}
+#cart-btn{
+  all: unset;
+}
+
+.header-button{
     all:unset;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #966D50;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: Inter;
+}
+
+button:hover{
+  text-decoration: underline;
 }
 
 .sect-1{
@@ -203,6 +209,7 @@ h1{
     width: 100%;
   }
   p{
+    color: #876A54;
     height: 36px;
     text-align: center;
     font-family: Gelasio;
@@ -216,17 +223,22 @@ h1{
         list-style-type: none;
         border-bottom: 1px #7A564C solid; 
         padding: 12px 0px;
-        a{
-            text-transform: uppercase;
-            font-family: Merriweather;
-            color: #966D50;
-            text-decoration: none;
-            font-family: Inter;
-            font-size: 36px;
-            font-weight: 700;
-        }
       }
   }
+}
+
+.nav-ul-button{
+    all: unset;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  font-family: Merriweather;
+  color: #966D50;
+  text-decoration: none;
+  font-family: Inter;
+  font-size: 36px;
+  font-weight: 700;
+  width: 100%;
 }
 
 #first-li{
@@ -641,6 +653,9 @@ footer{
   }
   h1{
     font-size: 110px;
+  }
+  .card{
+    padding: 2rem 1.5rem;
   }
 }
 

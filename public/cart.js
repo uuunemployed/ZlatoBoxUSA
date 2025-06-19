@@ -44,7 +44,7 @@ function calculateCartTotal() {
     }
   });
 
-  return total; // тільки число
+  return total;
 }
 
 function updateTotal() {
@@ -52,7 +52,6 @@ function updateTotal() {
   document.getElementById('amountDisplay').textContent = total;
 }
 
-// Рахуємо і зберігаємо
 const total = calculateCartTotal();
 localStorage.setItem('cartTotal', total.toFixed(2));
 console.log('Сума в кошику:', total.toFixed(2));
