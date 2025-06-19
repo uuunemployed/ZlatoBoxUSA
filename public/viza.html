@@ -11,71 +11,67 @@
 <body>
 
   <form id="shippingForm"> 
-    <h2>Форма доставки</h2>
+    <header class="header">
+      <a href="" class="form_back_button"><svg width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.25 1.5L0.75 8L7.25 14.5" stroke="#966D50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</a>
+    <h2 class="form_title">Залиште свої дані</h2>
+    <div class="none"></div>
+    </header>
+      
 
-    <label for="firstName">Ім'я:</label>
-    <input type="text" id="firstName" name="firstName" required>
-
-    <label for="lastName">Прізвище:</label>
-    <input type="text" id="lastName" name="lastName" required>
-
-    <label for="email">Електронна пошта:</label>
-    <input type="email" id="email" name="email" required>
-
-    <!-- Україна -->
-    <div style="display: none;" id="radio-div">
-      <label for="region">Область:</label>
-      <select id="region">
-        <option value="">Оберіть область</option>
-      </select>
-
-      <br><br>
-
-      <label for="city">Місто:</label>
-      <select id="city" disabled>
-        <option value="">Спочатку оберіть область</option>
-      </select>
-
-      <br><br>
-
-      <label for="warehouse">Відділення:</label>
-      <select id="warehouse" disabled>
-        <option value="">Спочатку оберіть місто</option>
-      </select>
-      <label>
-        <input type="radio" name="group1" onclick="radio1()"> При отриманні
-      </label>
-      <p style="display: none;" id="radio-p">Якщо ви вибрали оплату при отриманні — мінімальна передоплата 200 грн</p>
-
-      <label>
-        <input type="radio" name="group1" onclick="radio2()"> Картою
-      </label>
-      <p style="display: none;" id="radio-p2">Якщо ви вибрали оплату картою — оплата повна</p>
+    <div class="name_group group">
+      <input type="text" class="name_input input"  id="name" placeholder=" " autocomplete="given-name" required> 
+      <label for="name" class="label_name label">
+      Ім'я
+    </label>
+    </div>
+    <div class="surname_group group">
+      <input type="text" class="surname_input input"  id="surname" placeholder=" " autocomplete="family-name" required> 
+      <label for="surname" class="label_surname label">
+      Фамілія
+    </label>
+    </div>
+    <div class="email_group group">
+      <input type="email" class="email_input input"  id="email" placeholder=" " autocomplete="email" required> 
+      <label for="email" class="label_email label">
+      Електронна пошта
+    </label>
     </div>
 
-
-
-    <!-- Для Zásilkovna пошти (приховано зараз) -->
-    <script src="https://widget.packeta.com/v6/www/js/library.js"></script>
-    <!-- Чехія -->
-    <div style="display: none;" id="Cheh-div">
-      <p>Якщо ви бажаєте отримати товар у Чехії — повна оплата</p>
-      <button onclick="openZasilkovna()">Оберіть пункт видачі</button>
-      <p id="zasilkovna-branch-id"></p>
+    <div class="post_group newgroup">
+      <input type="text" class="post_input input"  id="post" placeholder=" " autocomplete="postal code" required> 
+      <label for="post" class="label_post label">
+      Поштовий індекс
+    </label>
     </div>
-    <script>
-      const p = document.getElementById('zasilkovna-branch-id');
-      function openZasilkovna() {
-        Packeta.Widget.pick('YOUR_API_KEY', function(point) {
-          document.getElementById('zasilkovna-branch-id').value = point.id;
-          alert("Обране відділення: " + point.name);
-          p.textContent = point.name
-        });
-      }
-    </script>
+
+    <div class="city_group newgroup">
+      <input type="text" class="city_input input"  id="city" placeholder=" " autocomplete="" required> 
+      <label for="city" class="label_city label">
+      Місто
+    </label>
+    </div>
+
+    <div class="department_group group">
+      <input type="text" class="department_input input"  id="department" placeholder=" " autocomplete="" required> 
+      <label for="department" class="label_department label">
+      Відділення пошти
+    </label>
+    </div>
+
+    <div class="country_group newgroup">
+      <input type="text" class="country_input input"  id="country" placeholder=" " autocomplete="country" required> 
+      <label for="country" class="label_country label">
+      Країна
+    </label>
+    </div>
+
+    <button id="cart-button" onclick="location.href='pay.html'">Зберегти</button>
+
   </form>
 
-  <button id="cart-button" onclick="location.href='pay.html'">Оплатити</button>
 
 </body>
 </html>
