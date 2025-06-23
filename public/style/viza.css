@@ -126,6 +126,7 @@ button{
   margin-top: 50px;
   cursor: pointer;
 }
+
 button::after{
   content: '';
   position: absolute;

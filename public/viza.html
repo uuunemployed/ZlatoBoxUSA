@@ -40,7 +40,9 @@
     </label>
     </div>
 
-    <div style="display: none;" id="radio-div">
+
+    
+    <div style="display: none;" id="ua-div">
       <label for="region">Область:</label>
       <select id="region">
         <option value="">Оберіть область</option>
@@ -62,7 +64,6 @@
       <label>
         <input type="radio" name="group1" onclick="radio1()"> При отриманні
       </label>
-      <p style="display: none;" id="radio-p">Якщо ви вибрали оплату при отриманні — мінімальна передоплата 5$</p>
       <p style="display: none;" id="radio-p">Якщо ви вибрали оплату при отриманні — мінімальна передоплата 200 грн</p>
 
       <label>
@@ -71,11 +72,18 @@
       <p style="display: none;" id="radio-p2">Якщо ви вибрали оплату картою — оплата повна</p>
     </div>
 
-    <div id="Cheh-div" style="display: none">
+
+
+
+    <div id="cz-div" style="display: none">
       <p>Якщо ви бажаєте отримати товар у Чехії — повна оплата</p>
-      <button onclick="openZasilkovna()">Оберіть пункт видачі</button>
+      <button id="second-button" onclick="openZasilkovna()">Оберіть пункт видачі</button>
       <p id="zasilkovna-branch-id"></p>
     </div>
+
+
+
+
     <button id="cart-button" onclick="location.href='pay.html'">Зберегти</button>
 
   </form>

@@ -1,5 +1,5 @@
-const buttonUa = document.getElementById('radio-div');
-const buttonCheh = document.getElementById('Cheh-div');
+const buttonUa = document.getElementById('ua-div');
+const buttonCheh = document.getElementById('cz-div');
 
 const country = localStorage.getItem('country') || 'UA';
 console.log(country);
@@ -148,5 +148,14 @@ citySelect.addEventListener('change', async () => {
 });
 
 loadRegions();
+
+
+
+const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+cart.forEach(item => {
+  console.log('Назва товару:', item.name);
+  console.log('Кількість:', item.quantity);
+});
 
 
