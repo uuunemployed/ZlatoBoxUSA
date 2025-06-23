@@ -2,9 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const path = require('path');
-const axios = require('axios'); // <--- обов'язково тут!
+const axios = require('axios');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -49,8 +51,6 @@ app.post('/create-payment', (req, res) => {
 app.post('/send-order', async (req, res) => {
   const data = req.body;
 
-  console.log('✅ Отримано замовлення:', data);
-
   const message = `
 📦 НОВЕ ЗАМОВЛЕННЯ:
 👤 Ім'я: ${data.firstName || 'немає'}
@@ -61,27 +61,21 @@ app.post('/send-order', async (req, res) => {
 🏤 Відділення: ${data.postOffice || 'немає'}
 🇨🇿 Чехія: ${data.czBranch || 'не обрано'}
 💳 Оплата: ${data.paymentType || 'не вибрано'}
-`;
+  `;
 
   try {
-    const tgRes = await axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    await axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       chat_id: CHAT_ID,
       text: message
     });
-
-    console.log('📬 Telegram успішно:', tgRes.data);
     res.status(200).send('OK');
   } catch (err) {
-    console.error('❌ Помилка надсилання в Telegram:', err.response?.data || err.message);
-    res.status(500).send('❌ Помилка надсилання в Telegram');
+    console.error('❌ Telegram error:', err.response?.data || err.message);
+    res.status(500).send('❌ Telegram error');
   }
 });
 
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
-  console.log('Open http://localhost:3000 in your browser');
-});
-
+// 🧾 Надсилання зведення кошика
 app.post('/send-cart-summary', async (req, res) => {
   const { message } = req.body;
 
@@ -92,9 +86,14 @@ app.post('/send-cart-summary', async (req, res) => {
     });
     res.sendStatus(200);
   } catch (err) {
-    console.error('Помилка надсилання:', err);
+    console.error('❌ Summary error:', err);
     res.sendStatus(500);
   }
+});
+
+// 🔥 Запуск сервера
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
 });
 
 
