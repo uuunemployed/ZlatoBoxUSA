@@ -130,3 +130,4 @@ function updateCart(itemElement, newQuantity) {
 
 
 
+

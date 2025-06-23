@@ -40,51 +40,50 @@
     </label>
     </div>
 
-
-    
-    <div style="display: none;" id="ua-div">
-      <label for="region">Область:</label>
+    <div style="display: none;" id="radio-div">
+      
+      <label for="region" class="region_label ukr_label">Область:</label>
       <select id="region">
-        <option value="">Оберіть область</option>
+        <option value="" class="region_option">Оберіть область</option>
       </select>
 
       <br><br>
 
-      <label for="city">Місто:</label>
+      <label for="city" class="city_label ukr_label">Місто:</label>
       <select id="city" disabled>
         <option value="">Спочатку оберіть область</option>
       </select>
 
       <br><br>
-
-      <label for="warehouse">Відділення:</label>
+       
+      
+      
+      <label for="warehouse" class="warehouse_label ukr_label">Відділення:</label>
       <select id="warehouse" disabled>
         <option value="">Спочатку оберіть місто</option>
       </select>
-      <label>
-        <input type="radio" name="group1" onclick="radio1()"> При отриманні
+
+      <div class="radio_div">
+      <label class="radio_label">При отриманні
+        <input type="radio" name="group1" onclick="radio1()" class="radio_input"> 
+      </label>
+      
+
+      <label class="radio_label">Картою
+        <input type="radio" name="group1" onclick="radio2()" class="radio_input"> 
       </label>
       <p style="display: none;" id="radio-p">Якщо ви вибрали оплату при отриманні — мінімальна передоплата 200 грн</p>
-
-      <label>
-        <input type="radio" name="group1" onclick="radio2()"> Картою
-      </label>
       <p style="display: none;" id="radio-p2">Якщо ви вибрали оплату картою — оплата повна</p>
     </div>
+    </div>
 
-
-
-
-    <div id="cz-div" style="display: none">
-      <p>Якщо ви бажаєте отримати товар у Чехії — повна оплата</p>
-      <button id="second-button" onclick="openZasilkovna()">Оберіть пункт видачі</button>
+    <div id="Cheh-div" style="display: none">
+      <p class="CZ_desc">Якщо ви бажаєте отримати товар у Чехії — повна оплата</p>
+      <button onclick="openZasilkovna()"  class="CZ_button" type="button">Оберіть пункт видачі</button>
       <p id="zasilkovna-branch-id"></p>
     </div>
 
-
-
-
-    <button id="cart-button" onclick="location.href='pay.html'">Зберегти</button>
+    <button id="cart-button" type="submit">Зберегти</button>
 
   </form>
 
@@ -99,6 +98,8 @@
           p.textContent = point.name
         });
       }
+
+
     </script>
   
 </body>

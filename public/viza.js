@@ -1,5 +1,5 @@
-const buttonUa = document.getElementById('ua-div');
-const buttonCheh = document.getElementById('cz-div');
+const buttonUa = document.getElementById('radio-div');
+const buttonCheh = document.getElementById('Cheh-div');
 
 const country = localStorage.getItem('country') || 'UA';
 console.log(country);
@@ -149,13 +149,46 @@ citySelect.addEventListener('change', async () => {
 
 loadRegions();
 
+const form = document.getElementById('shippingForm');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const formData = {
+    firstName: document.getElementById('name').value.trim(),
+    lastName: document.getElementById('surname').value.trim(),
+    email: document.getElementById('email').value.trim(),
+  };
+
+  const uaBlock = document.getElementById('radio-div');
+  const czBlock = document.getElementById('Cheh-div');
+
+  if (uaBlock.style.display === 'block') {
+    formData.region = regionSelect.selectedOptions[0]?.textContent || '';
+formData.city = citySelect.selectedOptions[0]?.textContent || '';
+formData.postOffice = warehouseSelect.selectedOptions[0]?.textContent || '';
 
 
-const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const radioOption = document.querySelector('input[name="group1"]:checked');
+    formData.paymentType = radioOption ? radioOption.parentElement.textContent.trim() : 'не вибрано';
+  }
 
-cart.forEach(item => {
-  console.log('Назва товару:', item.name);
-  console.log('Кількість:', item.quantity);
+  if (czBlock.style.display === 'block') {
+    formData.czBranch = document.getElementById('zasilkovna-branch-id').textContent.trim();
+  }
+
+  console.log('✅ Дані для localStorage:', formData);
+
+  localStorage.setItem('formData', JSON.stringify(formData)); // важливо!
+  window.location.href = 'pay.html'; // після збереження
 });
+
+
+
+
+
+
+
+
 
 
