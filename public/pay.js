@@ -17,6 +17,12 @@ async function startPayment() {
       body: JSON.stringify({ amount, country })
     });
 
+    // Перевірка статусу відповіді
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`❌ HTTP ${response.status}: ${errorText}`);
+    }
+
     const { data, signature } = await response.json();
 
     const container = document.getElementById(containerId);
@@ -31,17 +37,19 @@ async function startPayment() {
     .on("liqpay.callback", async function (data) {
       console.log("📦 CALLBACK DATA:", data);
 
-      // Якщо оплата успішна
       if (data.status === 'success' || data.status === 'sandbox') {
         const formData = JSON.parse(localStorage.getItem('formData'));
         console.log("📬 Надсилаємо форму:", formData);
         const summary = getCartSummary();
-  fetch('/send-cart-summary', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ message: summary })
-});
 
+        // Надсилання зведення кошика
+        await fetch('/send-cart-summary', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: summary })
+        });
+
+        // Надсилання форми до Telegram
         try {
           const tgRes = await fetch('/send-order', {
             method: 'POST',
@@ -69,9 +77,10 @@ async function startPayment() {
     });
 
   } catch (error) {
-    console.error('❌ Помилка під час ініціалізації оплати:', error);
+    console.error('❌ Помилка під час ініціалізації оплати:', error.message);
   }
 }
+
 function getCartSummary() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   let total = 0;
