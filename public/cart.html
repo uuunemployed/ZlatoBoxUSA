@@ -9,15 +9,29 @@
   <title>Оплата LiqPay</title>
 </head>
 <body>
-  <header>
-    <h1>Ваш кошик</h1>
+
+  <header class="header">
+    <button id="home-btn" onclick="history.back()">
+      <svg width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7.25 1.5L0.75 8L7.25 14.5" stroke="#966D50" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <h1>Корзина</h1>
+    <button id="home-btn">
+    </button>
   </header>
+
+
   <main class="container" id="cart-container">
     <!-- Товари будуть показані тут -->
   </main>
 
-
-<h3>Сума до оплати: <span id="amountDisplay"></span></h3>
-<button onclick="window.location.href='viza.html'" id="big-btn">Замовити</button>
+<div class="pay-div">
+    <div class="finaly-price">
+      <p>Сума до оплати:</p>
+      <span id="amountDisplay"></span>
+    </div>
+    <button onclick="window.location.href='viza.html'" id="big-btn">Замовити</button>
+</div>
 </body>
 </html>

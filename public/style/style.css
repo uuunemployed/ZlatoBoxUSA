@@ -538,18 +538,22 @@ h1{
   font-size: 24px;
   font-weight: 400;
   color: #966D50;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 
-.faq-question::after {
-  content: "+";
-  position: absolute;
-  right: 1rem;
-  font-size: 1.2rem;
+.minus-icon {
+  display: none;
 }
 
-.faq-item-content.active .faq-question::after {
-  content: "–";
+.faq-item-content.active .plus-icon {
+  display: none;
+}
+
+.faq-item-content.active .minus-icon {
+  display: inline;
 }
 
 .faq-answer {
