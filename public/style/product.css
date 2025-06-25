@@ -516,6 +516,78 @@ main{
   width: 80%;
 }
 
+
+
+.slider {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  user-select: none;
+}
+
+.main-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.dot {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.5;
+  border: 2px solid transparent;
+}
+
+/* Різні форми */
+.dot.circle {
+  width: 50px;
+  height: 6px;
+  border-radius: 4px;
+  background-color: #D0D0D0;
+}
+
+.dot.square {
+  width: 30px;
+  height: 6px;
+  border-radius: 4px;
+  background-color: #D0D0D0;
+}
+
+.dot.triangle {
+  width: 63px;
+  height: 6px;
+  border-radius: 4px;
+  background-color: #D0D0D0;
+}
+
+/* Активний стан */
+.dot.active {
+  opacity: 1;
+  border-color: #966D50;
+}
+
+.dot.active.circle {
+  background-color: #966D50;
+}
+
+.dot.active.square {
+  background-color: #966D50;
+}
+
+.dot.active.triangle {
+   background-color: #966D50;
+}
+
 @media (max-width: 1500px) {
   .header-content{
     width: 80% !important;

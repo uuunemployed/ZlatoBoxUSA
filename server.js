@@ -92,6 +92,7 @@ app.post('/send-cart-summary', async (req, res) => {
 });
 
 // 🔥 Запуск сервера
+
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });

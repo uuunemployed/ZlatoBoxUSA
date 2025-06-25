@@ -19,42 +19,116 @@ navLinks.forEach(link => {
   });
 });
 
-    const country = localStorage.getItem('country') || 'UA';
-    const amount = parseFloat(localStorage.getItem('cartTotal')) || 0;
-    console.log('Сума для оплати:', amount);
-    const params = new URLSearchParams(window.location.search);
-    const productId = params.get("id");
+const country = localStorage.getItem('country') || 'UA';
+const amount = parseFloat(localStorage.getItem('cartTotal')) || 0;
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("id");
 
+console.log('Сума для оплати:', amount);
 
+// Завантаження товарів з Google Sheets
 fetch("https://opensheet.elk.sh/19o25EhVW1vjLp6FDSy02vXEGObD506kyyG3qrE1iM_c/prod")
   .then(res => res.json())
   .then(products => {
     const product = products.find(p => p.id === productId);
+
     if (!product) {
-      document.body.innerHTML = "<p>Товар не знайдено</p>";
+      document.body.innerHTML = "<p>❌ Товар не знайдено</p>";
       return;
     }
 
-    document.getElementById("product-name").textContent = product.name;
-    document.getElementById("product-image").src = product.image;
+    renderProduct(product);
+  })
+  .catch(err => {
+    console.error("❌ Помилка завантаження товару:", err);
+    document.body.innerHTML = "<p>⚠️ Не вдалося завантажити товар</p>";
+  });
 
-    if (country === 'UA') {
-      document.getElementById("product-price").textContent = product.price + " грн";
-    } else {
-      document.getElementById("product-price").textContent = product.price2 + " $";
-    }
+// Функція для відображення товару
+function renderProduct(product) {
+  const images = [
+    product.image || '',
+    product.image2 || '',
+    product.image3 || ''
+  ];
 
-    document.getElementById("product-description").textContent = product.description;
-    document.getElementById("product-about").textContent = product.about;
+  const mainImage = document.getElementById('product-image');
+  const dotsContainer = document.getElementById('slider-dots');
 
-    const addBtn = document.getElementById("add-to-cart-btn");
-    addBtn.addEventListener("click", () => {
-      toggleProductInCart(product);
-      updateProductButton(product.id);
+  let currentIndex = 0;
+
+  function showImage(index) {
+    if (index < 0) index = images.length - 1;
+    if (index >= images.length) index = 0;
+
+    currentIndex = index;
+    mainImage.src = images[currentIndex] || 'placeholder.jpg';
+
+    dotsContainer.querySelectorAll('.dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentIndex);
+    });
+  }
+
+  // Створюємо 3 дота з різною формою
+  dotsContainer.innerHTML = '';
+
+  const shapes = ['circle', 'square', 'triangle'];
+
+  shapes.forEach((shape, i) => {
+    const dot = document.createElement('div');
+    dot.classList.add('dot', shape);
+    if (i === 0) dot.classList.add('active');
+
+    dot.addEventListener('click', () => {
+      showImage(i);
     });
 
-    updateProductButton(product.id);
+    dotsContainer.appendChild(dot);
   });
+
+  showImage(0);
+
+  // Підтримка свайпу для мобільних
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  const slider = document.querySelector('.slider');
+
+  slider.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  slider.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleGesture();
+  });
+
+  function handleGesture() {
+    if (touchEndX < touchStartX - 30) {
+      showImage(currentIndex + 1);
+    } else if (touchEndX > touchStartX + 30) {
+      showImage(currentIndex - 1);
+    }
+  }
+
+  // Відображення ціни, опису, кнопки
+  const priceEl = document.getElementById("product-price");
+  priceEl.textContent = (country === 'UA')
+    ? `${product.price} грн`
+    : `${product.price2} $`;
+
+  document.getElementById("product-description").textContent = product.description || "";
+  document.getElementById("product-about").textContent = product.about || "";
+  document.getElementById("product-name").textContent = product.name || "";
+
+  const addBtn = document.getElementById("add-to-cart-btn");
+  addBtn.onclick = () => {
+    toggleProductInCart(product);
+    updateProductButton(product.id);
+  };
+
+  updateProductButton(product.id);
+}
 
 
 // --- Кошик ---
