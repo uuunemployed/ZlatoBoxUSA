@@ -13,8 +13,8 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Дані мерчанта (тестові)
-const merchantAccount = "github_com10";
-const secretKey = "e5c1e1c536f0656ecfd2f82a556ee5b81c03703a";
+const merchantAccount = "test_merch_n1";
+const secretKey = "flk3409refn54t54t*FNJRET";
 const merchantDomainName = "zlatoboxusa.onrender.com";
 
 app.post('/api/payment', (req, res) => {

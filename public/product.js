@@ -115,7 +115,7 @@ function renderProduct(product) {
   const priceEl = document.getElementById("product-price");
   priceEl.textContent = (country === 'UA')
     ? `${product.price} грн`
-    : `${product.price2} $`;
+    : `${product.price2} Kc`;
 
   document.getElementById("product-description").textContent = product.description || "";
   document.getElementById("product-about").textContent = product.about || "";

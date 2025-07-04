@@ -28,7 +28,7 @@ function updatePrices(country) {
       priceEl.textContent = `${priceEl.dataset.uah} грн`;
     } else if (country === 'CZ') {
       localStorage.setItem('country', country);
-      priceEl.textContent = `${priceEl.dataset.czk} $`;
+      priceEl.textContent = `${priceEl.dataset.czk} Kc`;
     }
   });
 }

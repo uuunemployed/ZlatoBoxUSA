@@ -6,6 +6,7 @@
   <title>Форма доставки</title>
   <link rel="stylesheet" href="style/viza.css">
   <script src="https://widget.packeta.com/v6/www/js/library.js"></script>
+  <script src="https://secure.wayforpay.com/server/pay-widget.js"></script>
   <script src="viza.js" defer></script>
 </head>
 <body>
@@ -83,7 +84,7 @@
       <p id="zasilkovna-branch-id"></p>
     </div>
 
-    <button id="cart-button" type="submit">Зберегти</button>
+    <button id="cart-button" onclick="startPayment()" type="submit">Зберегти</button>
 
   </form>
 

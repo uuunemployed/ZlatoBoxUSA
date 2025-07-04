@@ -24,7 +24,7 @@ if (cart.length === 0) {
               <p class="price"
                 data-uah="${item.price}"
                 data-czk="${item.price2}">
-                ${country === 'UA' ? `${item.price} грн` : `${item.price2} $`}
+                ${country === 'UA' ? `${item.price} грн` : `${item.price2} Kc`}
               </p>
             </div>
             <button class="remove-btn" onclick="removeItem(${index})">
@@ -86,7 +86,7 @@ function updateTotal() {
   if (country === 'UA') {
     display.textContent = total.toFixed(2) + ' грн';
   } else {
-    display.textContent = total.toFixed(2) + ' $';
+    display.textContent = total.toFixed(2) + ' Kc';
   }
 }
 
