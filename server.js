@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');       // <-- додай цей рядок
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const path = require('path');
