@@ -13,7 +13,7 @@ function isArrayOfStrings(arr) {
   return Array.isArray(arr) && arr.every(item => typeof item === 'string');
 }
 
-document.getElementById("payBtn").addEventListener("click", () => {
+document.addEventListener("DOMContentLoaded", () => {
   fetch("/api/payment", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -21,10 +21,8 @@ document.getElementById("payBtn").addEventListener("click", () => {
   })
     .then(res => res.json())
     .then(data => {
-      // Логування отриманих даних
       console.log("Отримані дані з бекенду:", data);
 
-      // Гарантуємо правильні типи та формат полів для wayforpay.run
       const productName = isArrayOfStrings(data.productName) ? data.productName : [String(data.productName)];
       const productPrice = isArrayOfStrings(data.productPrice) ? data.productPrice : [String(data.productPrice)];
       const productCount = isArrayOfStrings(data.productCount) ? data.productCount : [String(data.productCount)];
@@ -59,10 +57,6 @@ document.getElementById("payBtn").addEventListener("click", () => {
       (response) => { console.log("Оплата в обробці", response); });
     })
     .catch(err => console.error("Помилка отримання даних з бекенду:", err));
-});
-
-window.addEventListener("message", (event) => {
-  console.log("WayForPay event:", event.data);
 });
 
 
