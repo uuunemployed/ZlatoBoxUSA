@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Дані мерчанта (тестові)
 const merchantAccount = "github_com10";
 const secretKey = "e5c1e1c536f0656ecfd2f82a556ee5b81c03703a";
-const merchantDomainName = "wayforpay-test-1.onrender.com";
+const merchantDomainName = "zlatoboxusa.onrender.com";
 
 app.post('/api/payment', (req, res) => {
   const { amount, currency } = req.body;
@@ -27,7 +27,7 @@ app.post('/api/payment', (req, res) => {
   const orderReference = "ORDER_" + Date.now();
   const orderDate = Math.floor(Date.now() / 1000);
 
-  const productName = ["Процессор Intel Core i5-4670 3.4GHz"];
+  const productName = ["a"];
   const productCount = ["1"];
   const productPrice = [orderAmount];
 
