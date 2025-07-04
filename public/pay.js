@@ -7,79 +7,64 @@ if (country === 'UA') {
 }
 console.log('Сума для оплати:', amount);
 
-async function startPayment() {
-  const containerId = 'liqpay_checkout';
+const wayforpay = new Wayforpay();
 
-  try {
-    const response = await fetch('/create-payment', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount, country })
-    });
-
-    // Перевірка статусу відповіді
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`❌ HTTP ${response.status}: ${errorText}`);
-    }
-
-    const { data, signature } = await response.json();
-
-    const container = document.getElementById(containerId);
-    container.innerHTML = '';
-
-    LiqPayCheckout.init({
-      data,
-      signature,
-      embedTo: `#${containerId}`,
-      mode: "embed"
-    })
-    .on("liqpay.callback", async function (data) {
-      console.log("📦 CALLBACK DATA:", data);
-
-      if (data.status === 'success' || data.status === 'sandbox') {
-        const formData = JSON.parse(localStorage.getItem('formData'));
-        console.log("📬 Надсилаємо форму:", formData);
-        const summary = getCartSummary();
-
-        // Надсилання зведення кошика
-        await fetch('/send-cart-summary', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: summary })
-        });
-
-        // Надсилання форми до Telegram
-        try {
-          const tgRes = await fetch('/send-order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-          });
-
-          if (tgRes.ok) {
-            console.log("✅ Дані успішно надіслано в Telegram");
-          } else {
-            console.error("❌ Помилка при надсиланні в Telegram");
-          }
-        } catch (err) {
-          console.error("❌ Виняток при Telegram:", err);
-        }
-      } else {
-        console.warn("⚠️ Оплата неуспішна:", data.status);
-      }
-    })
-    .on("liqpay.ready", function (data) {
-      console.log("🟢 LiqPay готовий", data);
-    })
-    .on("liqpay.close", function (data) {
-      console.log("🔴 LiqPay закритий", data);
-    });
-
-  } catch (error) {
-    console.error('❌ Помилка під час ініціалізації оплати:', error.message);
-  }
+function isArrayOfStrings(arr) {
+  return Array.isArray(arr) && arr.every(item => typeof item === 'string');
 }
+
+document.getElementById("payBtn").addEventListener("click", () => {
+  fetch("/api/payment", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: "{}"
+  })
+    .then(res => res.json())
+    .then(data => {
+      // Логування отриманих даних
+      console.log("Отримані дані з бекенду:", data);
+
+      // Гарантуємо правильні типи та формат полів для wayforpay.run
+      const productName = isArrayOfStrings(data.productName) ? data.productName : [String(data.productName)];
+      const productPrice = isArrayOfStrings(data.productPrice) ? data.productPrice : [String(data.productPrice)];
+      const productCount = isArrayOfStrings(data.productCount) ? data.productCount : [String(data.productCount)];
+
+      const amount = Number(data.amount).toFixed(2);
+      const orderDate = String(data.orderDate);
+
+      console.log("Відформатовані дані для оплати:", {
+        productName, productPrice, productCount, amount, orderDate
+      });
+
+      wayforpay.run({
+        merchantAccount: data.merchantAccount,
+        merchantDomainName: data.merchantDomainName,
+        authorizationType: "SimpleSignature",
+        merchantSignature: data.merchantSignature,
+        orderReference: data.orderReference,
+        orderDate,
+        amount,
+        currency: data.currency,
+        productName,
+        productPrice,
+        productCount,
+        clientFirstName: data.clientFirstName,
+        clientLastName: data.clientLastName,
+        clientEmail: data.clientEmail,
+        clientPhone: data.clientPhone,
+        language: data.language,
+      },
+      (response) => { console.log("Оплата успішна", response); },
+      (response) => { console.log("Оплата відхилена", response); },
+      (response) => { console.log("Оплата в обробці", response); });
+    })
+    .catch(err => console.error("Помилка отримання даних з бекенду:", err));
+});
+
+window.addEventListener("message", (event) => {
+  console.log("WayForPay event:", event.data);
+});
+
 
 function getCartSummary() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
