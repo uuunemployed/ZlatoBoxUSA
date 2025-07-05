@@ -1,9 +1,7 @@
 const express = require('express');
-const cors = require('cors');       // <-- додай цей рядок
-const bodyParser = require('body-parser');
+const cors = require('cors');
 const crypto = require('crypto');
 const path = require('path');
-const axios = require('axios');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,33 +10,36 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Дані мерчанта (тестові)
-const merchantAccount = "test_merch_n1";
-const secretKey = "flk3409refn54t54t*FNJRET";
+const merchantAccount = "github_com10";
+const secretKey = "e5c1e1c536f0656ecfd2f82a556ee5b81c03703a";
 const merchantDomainName = "zlatoboxusa.onrender.com";
 
 app.post('/api/payment', (req, res) => {
-  const { amount, currency } = req.body;
+  let { amount, currency, productName, productCount, productPrice } = req.body;
 
-  // Якщо не передали - ставимо дефолти
-  const orderAmount = amount ? amount.toFixed(2) : "1000.00";
-  const orderCurrency = currency || "UAH";
+  amount = amount ? Number(amount).toFixed(2) : "1000.00";
+  currency = currency || "UAH";
+
+  if (!Array.isArray(productName)) productName = ["Товар"];
+  if (!Array.isArray(productCount)) productCount = [1];
+  if (!Array.isArray(productPrice)) productPrice = [amount];
+
+  // Впевнись, що всі масиви однакової довжини
+  const maxLength = Math.max(productName.length, productCount.length, productPrice.length);
+  productName = productName.slice(0, maxLength);
+  productCount = productCount.slice(0, maxLength);
+  productPrice = productPrice.slice(0, maxLength);
 
   const orderReference = "ORDER_" + Date.now();
   const orderDate = Math.floor(Date.now() / 1000);
 
-  const productName = ["a"];
-  const productCount = ["1"];
-  const productPrice = [orderAmount];
-
-  // Формуємо рядок для підпису
   const signatureString = [
     merchantAccount,
     merchantDomainName,
     orderReference,
     orderDate.toString(),
-    orderAmount,
-    orderCurrency,
+    amount,
+    currency,
     ...productName,
     ...productCount,
     ...productPrice
@@ -48,9 +49,6 @@ app.post('/api/payment', (req, res) => {
     .update(signatureString)
     .digest("hex");
 
-  console.log("Signature string →", signatureString);
-  console.log("Generated Signature →", merchantSignature);
-
   res.json({
     merchantAccount,
     merchantDomainName,
@@ -58,8 +56,8 @@ app.post('/api/payment', (req, res) => {
     merchantSignature,
     orderReference,
     orderDate,
-    amount: orderAmount,
-    currency: orderCurrency,
+    amount,
+    currency,
     productName,
     productCount,
     productPrice,
@@ -128,7 +126,7 @@ app.post('/send-cart-summary', async (req, res) => {
 // 🔥 Запуск сервера
 
 app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
+  console.log(`✅ Сервер запущено на http://localhost:${PORT}`);
 });
 
 

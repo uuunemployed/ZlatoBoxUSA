@@ -4,6 +4,10 @@ const buttonCheh = document.getElementById('Cheh-div');
 const country = localStorage.getItem('country') || 'UA';
 console.log(country);
 
+function isArrayOfStrings(arr) {
+  return Array.isArray(arr) && arr.every(item => typeof item === 'string');
+}
+
 
 let currency = "UAH";  // дефолт
 
@@ -187,26 +191,40 @@ formData.postOffice = warehouseSelect.selectedOptions[0]?.textContent || '';
   localStorage.setItem('formData', JSON.stringify(formData)); // важливо!
 });
 
-
 const wayforpay = new Wayforpay();
 
-function isArrayOfStrings(arr) {
-  return Array.isArray(arr) && arr.every(item => typeof item === 'string');
-}
-
 function startPayment() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  if (cart.length === 0) {
+    alert("Кошик порожній!");
+    return;
+  }
+
+  const productName = cart.map(item => item.name);
+  const productCount = cart.map(item => item.quantity || 1);
+  const productPrice = cart.map(item => {
+    if (country === 'UA') return parseFloat(item.price);
+    else if (country === 'CZ') return parseFloat(item.price2);
+    else return parseFloat(item.price);  // дефолтна ціна
+  });
+
   fetch("/api/payment", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ amount, currency })
+    body: JSON.stringify({
+      amount,
+      currency,
+      productName,
+      productCount,
+      productPrice
+    })
   })
   .then(res => res.json())
   .then(data => {
-    console.log("Отримані дані з бекенду:", data);
-
-    const productName = isArrayOfStrings(data.productName) ? data.productName : [String(data.productName)];
-    const productPrice = isArrayOfStrings(data.productPrice) ? data.productPrice : [String(data.productPrice)];
-    const productCount = isArrayOfStrings(data.productCount) ? data.productCount : [String(data.productCount)];
+    const productName = Array.isArray(data.productName) ? data.productName : [String(data.productName)];
+    const productPrice = Array.isArray(data.productPrice) ? data.productPrice : [String(data.productPrice)];
+    const productCount = Array.isArray(data.productCount) ? data.productCount : [String(data.productCount)];
 
     const amount = Number(data.amount).toFixed(2);
     const orderDate = String(data.orderDate);
@@ -235,7 +253,6 @@ function startPayment() {
   })
   .catch(err => console.error("Помилка отримання даних з бекенду:", err));
 }
-
 
 
 
