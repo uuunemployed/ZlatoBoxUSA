@@ -10,8 +10,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const merchantAccount = "github_com10";
-const secretKey = "e5c1e1c536f0656ecfd2f82a556ee5b81c03703a";
+const merchantAccount = "zlatoboxusa_onrender_com1";
+const secretKey = "8ffa0bff3577664381b4695a876d70d5009fc1db";
 const merchantDomainName = "zlatoboxusa.onrender.com";
 
 app.post('/api/payment', (req, res) => {
