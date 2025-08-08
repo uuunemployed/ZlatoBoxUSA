@@ -209,7 +209,7 @@ function startPayment() {
     else return parseFloat(item.price);  // дефолтна ціна
   });
 
-const API_BASE = 'https://zlatoboxusa.onrender.com';
+const API_BASE = 'https://zlato-box-usa-ldqk.vercel.app';
 
   fetch(`${API_BASE}/api/payment`, {
     method: "POST",
