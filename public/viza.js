@@ -209,7 +209,9 @@ function startPayment() {
     else return parseFloat(item.price);  // дефолтна ціна
   });
 
-  fetch("/api/payment", {
+const API_BASE = 'https://zlatoboxusa.onrender.com';
+
+  fetch(`${API_BASE}/api/payment`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
