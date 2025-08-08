@@ -8,6 +8,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+
+// Віддавати статичні файли з public
 app.use(express.static(path.join(__dirname, 'public')));
 
 const merchantAccount = "zlatoboxusa_onrender_com1";
@@ -24,7 +26,6 @@ app.post('/api/payment', (req, res) => {
   if (!Array.isArray(productCount)) productCount = [1];
   if (!Array.isArray(productPrice)) productPrice = [amount];
 
-  // Впевнись, що всі масиви однакової довжини
   const maxLength = Math.max(productName.length, productCount.length, productPrice.length);
   productName = productName.slice(0, maxLength);
   productCount = productCount.slice(0, maxLength);
@@ -67,6 +68,11 @@ app.post('/api/payment', (req, res) => {
     clientPhone: "380668136150",
     language: "UA",
   });
+});
+
+// Обробка всіх інших маршрутів — повертаємо index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 
